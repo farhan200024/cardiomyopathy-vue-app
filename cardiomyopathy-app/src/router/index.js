@@ -1,5 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import Login from '../views/Login.vue'
+import Register from '../views/Register.vue'
+import ForgotPassword from '../views/ForgotPassword.vue'
 
 const routes = [
   {
@@ -8,24 +11,19 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue')
-  },
-  {
     path: '/login',
     name: 'Login',
-    component: () => import('../views/Login.vue')
+    component: Login
   },
   {
     path: '/register',
     name: 'Register',
-    component: () => import('../views/Register.vue')
+    component: Register
   },
   {
     path: '/forgot-password',
-    name: 'forgot-password',
-    component: () => import('../components/ForgotPassword.vue')
+    name: 'ForgotPassword',
+    component: ForgotPassword
   }
 ]
 
