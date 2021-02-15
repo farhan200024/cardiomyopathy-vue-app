@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import firebase from 'firebase'
 
+
+///adding the firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyDfYBgvCS1Wu2MIpUaCqObkrG5bpq87WmM",
     authDomain: "cardiomyopathy-auth.firebaseapp.com",
@@ -13,5 +15,6 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
+/// initializing the firebase configuration
 
 createApp(App).use(router).mount('#app')

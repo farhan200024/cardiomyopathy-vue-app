@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>Hello, {{name}}! Welcome to our Cardiomyopahy website!</h1>
+    <h1>Hello, {{name}}! Welcome to our Cardiomyophaty website!</h1>
     <router-link to="/about">About</router-link>
     <br>
     <button class="logout" @click="Logout">Logout</button>

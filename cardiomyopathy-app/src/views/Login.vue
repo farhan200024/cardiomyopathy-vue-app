@@ -5,6 +5,11 @@
         <input type="text" placeholder="Email" v-model="email"/>
         <input type="password" placeholder="Password" v-model="password"/>
         <input type="submit" value="Login">
+
+          <!--  class="forgot-password text-right mt-2 mb-4"> -->
+                <p><router-link to="/forgot-password">Forgot password ?</router-link>
+            </p>
+
         <p>Don't have an account? <router-link to="/register">Register Here</router-link></p>
     </form>
 </div>
