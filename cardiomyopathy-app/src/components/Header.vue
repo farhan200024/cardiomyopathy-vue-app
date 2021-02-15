@@ -11,7 +11,6 @@
 
 		<nav class="navbar">
 			<router-link :to="{ name: 'Home' }">Home</router-link>
-			<router-link :to="{ name: 'About' }">News Feed</router-link>
 		</nav>
 	</header>
 </template>
@@ -29,8 +28,10 @@ export default {
 	}
 
 	.wrapper {
+		max-width: 1200px;
+		margin: 0 auto;
 		display: flex;
-		padding: 10px;
+		padding: 5px;
 		justify-content: space-between;
 		align-items: center;
 	}
@@ -42,7 +43,7 @@ export default {
 	.login, .signup{
 		cursor: pointer;
 		margin: 5px;
-		background: #5ae4ca;
+		background: rgba(0, 120, 215, .8);
 		font-weight: bold;
 		color: white;
 		border: none;
@@ -51,10 +52,12 @@ export default {
 	}
 
 	.signup {
-		background: rgba(0, 120, 215, .8);
+		background: #5ae4ca;
 	}
 
 	.navbar {
+		max-width: 1200px;
+		margin: 0 auto;
 		padding: 5px;
 	}
 
