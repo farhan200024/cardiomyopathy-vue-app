@@ -5,7 +5,7 @@
 
 			<div>
 				<router-link :to="{ name: 'Login' }"><button class="login" >Login</button></router-link>
-				<router-link :to="{ name: 'Register' }" ><button class="signup" >Signup</button></router-link>
+				<router-link :to="{ name: 'Register' }" ><button class="register" >Register</button></router-link>
 			</div>
 		</div>
 
@@ -40,7 +40,7 @@ export default {
 		color: #dfdfdf;
 	}
 	
-	.login, .signup{
+	.login, .register{
 		cursor: pointer;
 		margin: 5px;
 		background: rgba(0, 120, 215, .8);
@@ -51,25 +51,41 @@ export default {
 		font-size: 18px;
 	}
 
-	.signup {
+	.login:hover {
+		background: blue;
+	}
+
+	.register {
 		background: #5ae4ca;
+	}
+
+	.register:hover {
+		background: green;
 	}
 
 	.navbar {
 		max-width: 1200px;
 		margin: 0 auto;
-		padding: 5px;
+		padding: 10px;
 	}
 
 	.navbar a {
+		cursor: pointer;
 		font-size: 24px;
 		text-decoration: none;
 		margin-left: 20px;
 		color: black;
+		padding: 8px 16px;
+	}
+
+	.navbar a:hover {
+		background: #dfdfdf;
+		font-weight: bold;
 	}
 
 	.navbar a.router-link-active {
 		font-weight: bold;
+		background: #dfdfdf;
 	}
 
 </style>

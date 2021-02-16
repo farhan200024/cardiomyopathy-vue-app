@@ -34,3 +34,7 @@ body {
 	text-decoration: underline;
 	cursor: pointer;
 }
+
+.form span:hover {
+	color: red;
+}
