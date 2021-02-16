@@ -1,6 +1,10 @@
 <template>
   <Header />
-  <router-view class="container"/>
+  <article class="container">
+    <div class="content">
+      <router-view />
+    </div>
+  </article>
 </template>
 
 <script>
@@ -21,6 +25,15 @@ export default {
 
 .container {
   text-align: center;
+  border: 1px solid blue;
+}
+
+.content {
+  display: block;
+  max-width: 1200px;
+  margin: 0 auto;
+  border: 1px solid red;
+  background: white;
 }
 
 </style>
