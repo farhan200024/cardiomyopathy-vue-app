@@ -4,8 +4,8 @@
 			<h1>Logo</h1>
 
 			<div>
-				<button class="login" >Login</button>
-				<button class="signup" >Signup</button>
+				<router-link :to="{ name: 'Login' }"><button class="login" >Login</button></router-link>
+				<router-link :to="{ name: 'Register' }" ><button class="signup" >Signup</button></router-link>
 			</div>
 		</div>
 
