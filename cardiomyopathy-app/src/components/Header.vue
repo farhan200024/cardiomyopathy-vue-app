@@ -24,7 +24,7 @@ export default {
 <style>
 
 	header {
-		background: crimson;
+		background: white;
 	}
 
 	.wrapper {
@@ -65,7 +65,7 @@ export default {
 		font-size: 24px;
 		text-decoration: none;
 		margin-left: 20px;
-		color: white;
+		color: black;
 	}
 
 	.navbar a.router-link-active {

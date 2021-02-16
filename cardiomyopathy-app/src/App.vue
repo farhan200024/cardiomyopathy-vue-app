@@ -1,8 +1,6 @@
 <template>
   <Header />
-  <div class="container">
-    <router-view/>
-  </div>
+  <router-view class="container"/>
 </template>
 
 <script>
@@ -20,7 +18,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
+
 .container {
   text-align: center;
 }
+
 </style>
