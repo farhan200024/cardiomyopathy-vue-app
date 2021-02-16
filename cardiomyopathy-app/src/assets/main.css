@@ -29,6 +29,10 @@ body {
 	margin: 20px auto;
 }
 
+.form input:focus {
+	border: 1px solid black;
+}
+
 .form span {
 	font-weight: bold;
 	text-decoration: underline;
@@ -37,4 +41,43 @@ body {
 
 .form span:hover {
 	color: red;
+}
+
+.primary, .success, .danger, .warning{
+	cursor: pointer;
+	margin: 5px;
+	background: rgba(0, 120, 215, .8);
+	font-weight: bold;
+	color: white;
+	border: none;
+	padding: 8px 16px;
+	font-size: 18px;
+}
+
+.warning {
+	background: #FFC006;
+}
+
+.warning:hover {
+	background: orange;
+}
+
+.danger {
+	background: crimson;
+}
+
+.danger:hover {
+	background: red;
+}
+
+.primary:hover {
+	background: blue;
+}
+
+.success {
+	background: #5ae4ca;
+}
+
+.success:hover {
+	background: green;
 }

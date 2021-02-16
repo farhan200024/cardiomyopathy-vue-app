@@ -10,8 +10,8 @@
 			
 
 			<div>
-				<router-link :to="{ name: 'Login' }"><button class="login" >Login</button></router-link>
-				<router-link :to="{ name: 'Register' }" ><button class="register" >Register</button></router-link>
+				<router-link :to="{ name: 'Login' }"><button class="primary" >Login</button></router-link>
+				<router-link :to="{ name: 'Register' }" ><button class="success" >Register</button></router-link>
 			</div>
 		</div>
 
@@ -44,29 +44,6 @@ export default {
 
 	header .wrapper {
 		color: #dfdfdf;
-	}
-	
-	.login, .register{
-		cursor: pointer;
-		margin: 5px;
-		background: rgba(0, 120, 215, .8);
-		font-weight: bold;
-		color: white;
-		border: none;
-		padding: 8px 16px;
-		font-size: 18px;
-	}
-
-	.login:hover {
-		background: blue;
-	}
-
-	.register {
-		background: #5ae4ca;
-	}
-
-	.register:hover {
-		background: green;
 	}
 
 	.navbar {
