@@ -2,3 +2,39 @@ body {
 	margin: 0;
 	background: #dfdfdf;
 }
+
+/* form styles */
+.form {
+	width: 600px;
+	margin: 20px auto;
+}
+
+.form h1 {
+  font-size: 48px;
+}
+
+.form label {
+	display: block;
+	margin: 20px 0 10px;
+}
+
+.form input {
+	width: 100%;
+	padding: 20px;
+	border-radius: 20px;
+  font-size: 18px;
+	border: 1px solid #eee;
+	outline: none;
+	color: #999;
+	margin: 20px auto;
+}
+
+.form span {
+	font-weight: bold;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.form span:hover {
+	color: red;
+}
