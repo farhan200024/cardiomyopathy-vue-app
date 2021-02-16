@@ -1,7 +1,13 @@
 <template>
 	<header>
 		<div class="wrapper">
-			<h1>Logo</h1>
+			<router-link class="polyline" :to="{ name: 'Home' }">
+				<svg version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="150px" height="73px" viewBox="0 0 150 73" enable-background="new 0 0 150 73" xml:space="preserve">
+					<polyline fill="none" stroke="green" stroke-width="3" stroke-miterlimit="10" points="0,45.486 38.514,45.486 44.595,33.324 50.676,45.486 57.771,45.486 62.838,55.622 71.959,9 80.067,63.729 84.122,45.486 97.297,45.486 103.379,40.419 110.473,45.486 150,45.486"
+					/>
+				</svg>
+			</router-link>
+			
 
 			<div>
 				<router-link :to="{ name: 'Login' }"><button class="login" >Login</button></router-link>
@@ -86,6 +92,17 @@ export default {
 	.navbar a.router-link-active {
 		font-weight: bold;
 		background: #dfdfdf;
+	}
+
+	.polyline {
+		/* border: 1px solid black; */
+		margin: 10px;
+		cursor: pointer;
+	}
+
+	.polyline svg {
+		width: 125px;
+		height: 61px;
 	}
 
 </style>
