@@ -1,7 +1,7 @@
 <template>
 	<h1>Home</h1>
 	<HeartPulse v-if="loading" />
-	<button @click="handleClick">Click Me!</button>
+	<button @click="handleClick" class="danger" >Click Me!</button>
 </template>
 
 <script>
