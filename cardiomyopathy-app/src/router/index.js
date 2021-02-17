@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import ForgotPassword from '../components/ForgotPassword.vue'
+import LineChart from '../components/LineChart.vue'
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/forgot-password',
     name: 'ForgotPassword',
     component: ForgotPassword
+  },
+  {
+    path: '/chart-example',
+    name: 'LineChart',
+    component: LineChart
   }
 ]
 
