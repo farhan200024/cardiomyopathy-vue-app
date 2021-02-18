@@ -1,8 +1,7 @@
 import { ref } from "vue"
 import papa from 'papaparse'
 
-const x = ref([])
-const y = ref([])
+const data = ref([])
 let file = null
 
 const onFileUpload = (e) => {
@@ -17,21 +16,17 @@ const onFileUpload = (e) => {
 			//console.log("finished: ", results.data)
 			for(let i = 1; i < results.data.length; i++) {
 				//console.log(results.data[i])
-				if(results.data[i][0] !== '' && results.data[i][0] !== undefined) {
-					x.value.push(results.data[i][0])
-				}
-				if(results.data[i][1] !== '' && results.data[i][1] !== undefined) {
-					y.value.push(results.data[i][1])
+				if(results.data[i][0] !== '' && results.data[i][0] !== undefined && results.data[i][0] !== '' && results.data[i][0] !== undefined) {
+					data.value.push(results.data[i])
 				}
 			}
-			console.log(x.value)
-			console.log(y.value)
+			console.log(data.value)
 		}
 	})
 }
 
 const useParseCsvToJson = () => {
-	return { onFileUpload,  }
+	return { onFileUpload, data }
 }
 
 export default useParseCsvToJson
