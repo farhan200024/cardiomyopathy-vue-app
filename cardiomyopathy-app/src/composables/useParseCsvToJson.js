@@ -20,7 +20,7 @@ const onFileUpload = (e) => {
 					data.value.push(results.data[i])
 				}
 			}
-			console.log(data.value)
+			// console.log(data.value)
 		}
 	})
 }
