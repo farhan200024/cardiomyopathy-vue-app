@@ -1,5 +1,6 @@
 <template>
-	<form v-if="!forgottenPassword" @submit.prevent="handleLogin" class="form">
+
+	<form v-if="!forgottenPassword" @submit.prevent="signInAction" class="form">
     <h1>Login</h1>
 		<div v-if="emailVerificationSent" class="bubble" >
 			<p>{{ emailVerificationSent }}</p><p @click="emailVerificationSent = null" >X</p>
@@ -11,6 +12,7 @@
 		<button class="primary" >Log In</button>
 		<p>No account yet? <span  @click="showSignup">Register</span> instead</p>
 	</form>
+
 	<form v-else @submit.prevent="handleResetPassword" class="form">
 		<h1>Reset Password</h1>
 		<p>Please enter your email address to reset your password.</p>
@@ -26,10 +28,12 @@ import { ref } from 'vue'
 import useLogin from '../composables/useLogin'
 import useResetPassword from '../composables/useResetPassword'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
 export default {
-	setup(props, context) {
+	setup() {
 		const router = useRouter()
+		const store = useStore()
 
 		// refs
 		const email = ref('')
@@ -37,16 +41,16 @@ export default {
 		const forgottenPassword = ref(false)
 		const emailVerificationSent = ref(null)
 
-		const { error, login } = useLogin()
+		const { error, /*login*/ } = useLogin()
 		const { resetPasswordError, resetPassword } = useResetPassword()
 
-		const handleLogin = async  () => {
-			await login(email.value, password.value)
-			if(!error.value) {
-				console.log('user logged in')
-				context.emit("login")
-			}
-		}
+		// const handleLogin = async  () => {
+		// 	await login(email.value, password.value)
+		// 	if(!error.value) {
+		// 		console.log('user logged in')
+		// 		context.emit("login")
+		// 	}
+		// }
 
 		const handleResetPassword = async () => {
 			await resetPassword(email.value)
@@ -59,13 +63,18 @@ export default {
 
 		}
 
+		const signInAction = () => {
+			store.dispatch('signInAction', { email: email.value, password: password.value })
+		}
+
 		const showSignup = () => {
 			router.push({ name: 'Register' })
 		}
 
 		return { 	email, 
-							password, 
-							handleLogin, 
+							password,
+							signInAction ,
+							// handleLogin, 
 							error,
 							resetPasswordError,
 							showSignup, 

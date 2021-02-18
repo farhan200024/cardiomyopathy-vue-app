@@ -1,5 +1,5 @@
 <template>
-	<form v-if="!registered" @submit.prevent="handleSubmit" class="form">
+	<form v-if="!registered" @submit.prevent="signUpAction" class="form">
     <h1>Register</h1>
 		<input type="text" required placeholder="Display Name" v-model="displayName">
 		<input type="email" required placeholder="Email" v-model="email">
@@ -19,25 +19,33 @@
 import { ref } from 'vue'
 import useSignup from '../composables/useSignup'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
 export default {
-	setup(props, context) {
-		const { error, signup } = useSignup()
-		const router = useRouter()
 
+	setup() {
+		const { error, /*signup*/ } = useSignup()
+		const router = useRouter()
+		const store = useStore()
+		
 		// refs
 		const displayName = ref('')
 		const email = ref('')
 		const password = ref('')
 		const registered = ref(false)
 
-		const handleSubmit = async () => {
-			await signup(email.value, password.value, displayName.value)
-			console.log('user signed up')
-			if(!error.value) {
-				context.emit("signup")
-				registered.value = !registered.value
-			}
+		// const handleSubmit = async () => {
+		// 	await signup(email.value, password.value, displayName.value)
+		// 	console.log('user signed up')
+		// 	if(!error.value) {
+		// 		context.emit("signup")
+		// 		registered.value = !registered.value
+		// 	}
+		// }
+
+		const signUpAction = () => {
+			console.log(store)
+			store.dispatch('signUpAction', { email: email.value, password: password.value, displayName: displayName.value })
 		}
 
 		const showLogin = () => {
@@ -48,10 +56,11 @@ export default {
 							displayName,
 							email,
 							password,
-							handleSubmit,
+							// handleSubmit,
 							error,
 							showLogin,
-							registered
+							registered,
+							signUpAction
 						}
 	}
 }
