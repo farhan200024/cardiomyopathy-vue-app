@@ -1,23 +1,36 @@
 import firebase from 'firebase/app';
+import { projectAuth } from '@/firebase/config'
+import { ref } from 'vue';
+
+const error = ref(null)
 
 const actions = {
-	signUpAction({ commit }, payload) {
-		firebase
-			.auth()
-			.createUserWithEmailAndPassword(payload.email, payload.password)
-			.then(response => {
-				console.log(response.user)
-				response.user.updateProfile(payload.displayName)
-			}).then(response => {
-				console.log(response.user)
-				response.user.sendEmailVerification()
-			}).then(response => {
-				console.log(response.user)
-				commit("setUser", response.user)
+	async signUpAction({ commit }, payload) {
+		error.value = null
+
+		try {
+			const response = await projectAuth.createUserWithEmailAndPassword(payload.email, payload.password)
+
+			if(!response) {
+				throw new Error("Could not complete the signup")
+			}
+			commit("setUser", response.user)
+
+			// send an email verification to the users email
+			await response.user.sendEmailVerification();
+			
+			await response.user.updateProfile({
+				displayName: payload.displayName
 			})
-			.catch(error => {
-				commit("setError", error.message)
-			});
+
+			error.value = null
+
+		return response
+
+		} catch(err) {
+			console.log(err.message)
+			error.value = err.message
+		}
 	},
 
 	signInAction({ commit }, payload) {

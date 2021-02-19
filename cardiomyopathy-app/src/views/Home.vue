@@ -1,5 +1,5 @@
 <template>
-	<h1 v-if="isUserAuth">Welcome, {{ getUser.email }}</h1>
+	<h1 v-if="isUserAuth">Welcome, {{ getUser.emailVerified }}</h1>
 	<HeartPulse v-if="loading" />
 	<button @click="handleClick" class="danger" >Click Me!</button>
 </template>
@@ -24,6 +24,7 @@ export default {
 		})
 
 		const handleClick = () => {
+			console.log(getUser)
 			loading.value = !loading.value;
 		}
 

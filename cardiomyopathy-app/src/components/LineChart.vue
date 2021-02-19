@@ -3,25 +3,30 @@
   <input type="text" placeholder="Line Name" v-model="lineName">
 	<input type="file" @change="onFileUpload" accept=".csv">
 	<button @click="handleClick" >Generate Chart</button>
+  <button @click="addSeries" >Add Series</button>
+  <button @click="toggleIt" >Toggle</button>
 
-	<apexchart v-if="line"
+	<apexchart v-if="showChart"
 		type="line"
 		height="350"
 		width="500"
 		:options="chartOptions"
 		:series="series"
 	></apexchart>
+  
 </template>
 
 <script>
 import useParseCsvToJson from '../composables/useParseCsvToJson'
-import { computed, ref } from 'vue'
+import {  ref } from 'vue'
 
 export default {
 	setup() {
 		const { onFileUpload, data } = useParseCsvToJson()
-    const lineName = ref('')
+    const lineName = ref('Control')
     const line = ref(null)
+    const multiSeries = ref([])
+    const showChart = ref(false)
 
 		const chartOptions = ref({
       chart: {
@@ -49,11 +54,7 @@ export default {
       },
       // the data that goes onto the X- axis
       xaxis: {
-				type: 'numeric',
-        min: 0.0,
-        max: 2.0,
-        range: 2,
-        tickAmount: 5
+				type: 'numeric'
       },
       // the text on the y axis
       yaxis: {
@@ -74,10 +75,11 @@ export default {
       },
     });
     // y values of the series
-    const series = computed(() => {
-      console.log(line.value)
-      return [line.value]
-    })
+    // const series = computed(() => {
+    //   console.log(line)
+    //   return [multiSeries.value]
+    // })
+    const series = ref([])
 
 		const handleClick = () => {
 			data.value = data.value.map((item) => {
@@ -88,17 +90,59 @@ export default {
 				return object
 			})
 
-      console.log(line.value)
-
       line.value = {
         name: lineName.value,
         data: data.value
       }
 
+      multiSeries.value.push(line.value)
+
+      multiSeries.value.push({
+        name: "Heart",
+        data: [
+          [0.2, 0.6],
+          [0.4, 0.3],
+          [0.6, 0.5],
+          [0.7, 0.4],
+          [0.8, 0.3],
+          [1, 0.2],
+          [1.2, 0.5],
+          [1.4, 0.8]
+        ]
+      })
+
+      series.value = multiSeries.value
+
+      console.log(multiSeries.value.length)
+      //showChart.value = true
+
       //console.log(line.value)
 
       // console.log(line.value.name)
 		}
+
+    const addSeries = () => {
+      multiSeries.value.push({
+        name: "AnotherLne",
+        data: [
+          [0.1, 0.6],
+          [0.4, 0.5],
+          [0.6, 0.8],
+          [0.7, 0.4],
+          [0.8, 0.1],
+          [1, 0.2],
+          [1.2, 0.3],
+          [1.4, 0.4]
+        ]
+      })
+      series.value = multiSeries.value
+      console.log(series.value.length)
+    }
+
+    const toggleIt = () => {
+      showChart.value = !showChart.value
+      console.log(showChart.value)
+    }
 
 		return {
 			onFileUpload,
@@ -107,7 +151,10 @@ export default {
 			data,
 			handleClick,
       line,
-      lineName
+      lineName,
+      addSeries,
+      showChart,
+      toggleIt
 		}
 	}
 }
