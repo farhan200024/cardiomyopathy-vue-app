@@ -20,6 +20,7 @@
 
 		<nav class="navbar">
 			<router-link :to="{ name: 'Home' }">Home</router-link>
+			<router-link v-if="isUserAuth" :to="{ name: 'Dashboard' }">Dashboard</router-link>
 		</nav>
 	</header>
 </template>
@@ -98,7 +99,7 @@ export default {
 
 	.navbar a.router-link-active {
 		font-weight: bold;
-		background: #dfdfdf;
+		text-decoration: underline;
 	}
 
 	.polyline {

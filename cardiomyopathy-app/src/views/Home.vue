@@ -1,5 +1,9 @@
 <template>
-	<h1 v-if="isUserAuth">Welcome, {{ getUser.emailVerified }}</h1>
+	<div v-if="isUserAuth">
+		<h1 >Welcome, {{ getUser.displayName }}</h1>
+		<p>You are logged in as {{ getUser.email }}</p>
+		<p>Your UID = {{ getUser.uid }}</p>
+	</div>
 	<HeartPulse v-if="loading" />
 	<button @click="handleClick" class="danger" >Click Me!</button>
 </template>

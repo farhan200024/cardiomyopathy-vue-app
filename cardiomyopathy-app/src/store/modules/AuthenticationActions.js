@@ -1,5 +1,5 @@
 import firebase from 'firebase/app';
-import { projectAuth } from '@/firebase/config'
+import { projectAuth, projectFirestore } from '@/firebase/config'
 import { ref } from 'vue';
 
 const error = ref(null)
@@ -9,19 +9,34 @@ const actions = {
 		error.value = null
 
 		try {
-			const response = await projectAuth.createUserWithEmailAndPassword(payload.email, payload.password)
+			// create and account for the user
+			const response = await projectAuth.createUserWithEmailAndPassword(payload.user.email, payload.user.password)
 
 			if(!response) {
 				throw new Error("Could not complete the signup")
 			}
+			// commit the state change by invoking vuex mutation
 			commit("setUser", response.user)
 
 			// send an email verification to the users email
 			await response.user.sendEmailVerification();
 			
 			await response.user.updateProfile({
-				displayName: payload.displayName
+				displayName: payload.user.displayName
 			})
+
+			// delete the unnecessary properties from the user object.
+			delete payload.user.email
+			delete payload.user.password
+			delete payload.user.displayName
+			
+			// create a specific document for the user to 
+			// create collections for lines
+			// need to ask if it is okay to do it by team members
+			await projectFirestore
+							.collection('users')
+							.doc(response.user.uid)
+							.set(payload.user)
 
 			error.value = null
 
