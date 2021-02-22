@@ -2,8 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
+import Dashboard from '../views/Dashboard.vue'
 import ForgotPassword from '../components/ForgotPassword.vue'
-import LineChart from '../components/LineChart.vue'
+import LineChartExample from '../components/LineChartExample.vue'
 import { projectAuth } from '../firebase/config'
 
 const loggedOutGuard = (to, from, next) => {
@@ -46,10 +47,17 @@ const routes = [
     beforeEnter: loggedInGuard
   },
   {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: Dashboard,
+    beforeEnter: authenticationGuard
+  },
+  {
     path: '/chart-example',
-    name: 'LineChart',
-    component: LineChart,
+    name: 'LineChartExample',
+    component: LineChartExample,
     beforeEnter: loggedOutGuard
+
   }
 ]
 

@@ -4,7 +4,8 @@ import papa from 'papaparse'
 const data = ref([])
 let file = null
 
-const onFileUpload = (e) => {
+const parseFile = (e) => {
+	data.value.length = 0
 	let files = e.target.files || e.dataTransfer.files
 	//console.log(files)
 	if(!files.length) {
@@ -26,7 +27,7 @@ const onFileUpload = (e) => {
 }
 
 const useParseCsvToJson = () => {
-	return { onFileUpload, data }
+	return { parseFile, data }
 }
 
 export default useParseCsvToJson
