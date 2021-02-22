@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Dashboard from '../views/Dashboard.vue'
+import CardiomyopathyData from '../views/CardiomyopathyData.vue'
 import ForgotPassword from '../components/ForgotPassword.vue'
 import LineChartExample from '../components/LineChartExample.vue'
 import { projectAuth } from '../firebase/config'
@@ -50,6 +51,12 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard,
+    beforeEnter: loggedOutGuard
+  },
+  {
+    path: '/data',
+    name: 'CardiomyopathyData',
+    component: CardiomyopathyData,
     beforeEnter: loggedOutGuard
   },
   {

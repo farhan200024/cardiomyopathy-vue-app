@@ -1,91 +1,115 @@
-<template>
-	<apexchart 
-		type="line"
-		height="350"
-		width="500"
-		:options="chartOptions"
-		:series="series"
-	></apexchart>
-  <button @click="lineDebug">Debug Chart</button>
-</template>
-
-<script>
-import { ref } from 'vue'
-
-export default {
-	props: ['series'],
-	setup(props) {
-
-		const chartOptions = ref({
-			chart: {
-        height: 350,
-        type: "line",
-        zoom: {
-          enabled: false,
-        },
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      stroke: {
-        curve: "straight",
-      },
-      title: {
-        text: "MYBPC",
-        align: "left",
-      },
-      grid: {
-        row: {
-          colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
-          opacity: 0.5,
-        },
-      },
-      // the data that goes onto the X- axis
-      xaxis: {
-        labels: {
-          formatter: function (value) {
-            if(value % 1 != 0) {
-              return parseFloat(value).toFixed(2);
-            }
-            return value
-          }
-        },
-				type: 'numeric'
-      },
-      // the text on the y axis
-      yaxis: {
-        title: {
-          text: "Sarcomere Length",
-        },
-        labels: {
-          formatter: function(value) {
-            return parseFloat(value).toFixed(2);
-          }
-        },
-        type: 'numeric'
-      },
-      // the colours and text displayed on the top right of the chart
-      legend: {
-        position: "top",
-        horizontalAlign: "right",
-        floating: true,
-        offsetY: -25,
-        offsetX: -5,
-      },
-		})
-
-		const lineDebug = () => {
-      console.log(props.series)
-		}
-
-		return {
-			chartOptions,
-			lineDebug
-		}
-	}
+* {
+	margin: 0;
 }
-</script>
 
-<style>
+body {
+	margin: 0;
+	background: #dfdfdf;
+}
 
-</style>
+h1 {
+	font-size: 48px;
+	border-bottom: 1px solid #dfdfdf;
+}
+
+/* form styles */
+.form {
+	width: 600px;
+	margin: 20px auto;
+}
+
+.form h1 {
+  font-size: 48px;
+}
+
+.form label {
+	display: block;
+	margin: 20px 0 10px;
+}
+
+.form input {
+	width: 100%;
+	padding: 20px;
+	border-radius: 20px;
+  font-size: 18px;
+	border: 1px solid rgb(173, 173, 173);
+	outline: none;
+	color: #999;
+	margin: 20px auto;
+}
+
+.form input:focus {
+	border: 1px solid black;
+}
+
+.form span {
+	font-weight: bold;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.form span:hover {
+	color: red;
+}
+
+.primary, .success, .danger, .warning{
+	cursor: pointer;
+	margin: 5px;
+	background: rgba(0, 120, 215, .8);
+	font-weight: bold;
+	color: white;
+	border: none;
+	padding: 8px 16px;
+	font-size: 18px;
+}
+
+.warning {
+	background: #FFC006;
+}
+
+.warning:hover {
+	background: orange;
+}
+
+.danger {
+	background: crimson;
+}
+
+.danger:hover {
+	background: red;
+}
+
+.primary:hover {
+	background: blue;
+}
+
+.success {
+	background: #5ae4ca;
+}
+
+.success:hover {
+	background: green;
+}
+
+/* action buttons */
+
+.material-icons {
+	padding: 10px;
+	font-size: 24px;
+}
+
+.action-buttons {
+	display: flex;
+	align-items: center;
+}
+
+.action-buttons > * {
+	cursor: pointer;
+}
+
+.action-buttons .delete-button:hover {
+	color: red;
+}
+.action-buttons .chart-button:hover {
+	color: rgb(16, 170, 49);
+}

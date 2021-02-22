@@ -24,6 +24,8 @@ const deletePost = async (userUID, postUID) => {
 
 const retrievePosts = async (userUID) => {
 	error.value = null
+	retrievedPosts.value.length = 0
+
 	try {
 		await projectFirestore
 						.collection('users')
@@ -50,6 +52,31 @@ const retrievePosts = async (userUID) => {
 	}
 }
 
+const retrieveAllPosts = async () => {
+	error.value = null
+	retrievedPosts.value.length = 0
+
+	try {
+		console.log('Lets Start')
+		await projectFirestore
+					.collectionGroup('series')
+					.onSnapshot((snap) => {
+						retrievedPosts.value = snap.docs.map(doc => {
+							return { ...doc.data(), id: doc.id }
+						})
+						if(retrievedPosts.value){
+							retrievedPosts.value.map(post => {
+								post.data = JSON.parse(post.data)
+							})
+						}
+					})
+
+					console.log(retrievedPosts)
+	} catch(err) {
+		console.log(err.message)
+	}
+}
+
 const addPost = async (userUID, post) => {
 	error.value = null
 
@@ -66,7 +93,7 @@ const addPost = async (userUID, post) => {
 }
 
 const useDAO = () => {
-	return { addPost, retrievePosts, retrievedPosts, deletePost, error }
+	return { addPost, retrievePosts, retrieveAllPosts, retrievedPosts, deletePost, error }
 }
 
 export default useDAO
