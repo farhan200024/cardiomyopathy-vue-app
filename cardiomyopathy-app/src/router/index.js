@@ -6,14 +6,14 @@ import ForgotPassword from '../components/ForgotPassword.vue'
 import LineChart from '../components/LineChart.vue'
 import { projectAuth } from '../firebase/config'
 
-const authenticationGuard = (to, from, next) => {
+const loggedOutGuard = (to, from, next) => {
   let user = projectAuth.currentUser
   console.log('current user in auth guard: ', user)
   if(!user) next({ name: 'Login' })
   else next()
 }
 
-const authenticationGuard2 = (to, from, next) => {
+const loggedInGuard = (to, from, next) => {
   let user = projectAuth.currentUser
   console.log('current user in auth guard: ', user)
   if(user) next({ path: '/' })
@@ -25,31 +25,31 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-    beforeEnter: authenticationGuard
+    beforeEnter: loggedOutGuard
   },
   {
     path: '/login',
     name: 'Login',
     component: Login,
-    beforeEnter: authenticationGuard2
+    beforeEnter: loggedInGuard
   },
   {
     path: '/register',
     name: 'Register',
     component: Register,
-    beforeEnter: authenticationGuard2
+    beforeEnter: loggedInGuard
   },
   {
     path: '/forgot-password',
     name: 'ForgotPassword',
     component: ForgotPassword,
-    beforeEnter: authenticationGuard2
+    beforeEnter: loggedInGuard
   },
   {
     path: '/chart-example',
     name: 'LineChart',
     component: LineChart,
-    beforeEnter: authenticationGuard
+    beforeEnter: loggedOutGuard
   }
 ]
 
