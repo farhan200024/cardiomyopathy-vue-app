@@ -9,20 +9,51 @@
 			</router-link>
 			
 
-			<div>
+			<div v-if="!isUserAuth">
 				<router-link :to="{ name: 'Login' }"><button class="primary" >Login</button></router-link>
 				<router-link :to="{ name: 'Register' }" ><button class="success" >Register</button></router-link>
+			</div>
+			<div v-else @click="signOut">
+				<button class="danger">Logout</button>
 			</div>
 		</div>
 
 		<nav class="navbar">
 			<router-link :to="{ name: 'Home' }">Home</router-link>
+			<router-link v-if="isUserAuth" :to="{ name: 'Dashboard' }">Dashboard</router-link>
 		</nav>
 	</header>
 </template>
 
 <script>
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+
 export default {
+	setup() {
+		const store = useStore()
+
+		const getUser = computed(() => {
+			console.log(store.getters.getUser)
+			return store.getters.getUser
+		})
+
+		const isUserAuth = computed(() => {
+			console.log(store.getters.isUserAuth)
+			return store.getters.isUserAuth
+		})
+
+		const signOut = () => {
+			store.dispatch('signOutAction')
+		}
+		
+
+		return {
+			getUser,
+			isUserAuth,
+			signOut
+		}
+	}
 
 }
 </script>
@@ -68,7 +99,7 @@ export default {
 
 	.navbar a.router-link-active {
 		font-weight: bold;
-		background: #dfdfdf;
+		text-decoration: underline;
 	}
 
 	.polyline {

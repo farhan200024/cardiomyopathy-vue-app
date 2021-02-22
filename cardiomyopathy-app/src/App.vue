@@ -9,9 +9,18 @@
 
 <script>
 import Header from './components/Header'
+import { useStore } from 'vuex'
+import { onMounted } from 'vue'
 
 export default {
-  components: { Header }
+  components: { Header },
+  setup() {
+    const store = useStore()
+
+    onMounted(() => {
+      store.dispatch('authAction')
+    })
+  }
 }
 </script>
 

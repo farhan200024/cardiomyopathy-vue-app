@@ -1,9 +1,12 @@
 <template>
-	<form v-if="!registered" @submit.prevent="handleSubmit" class="form">
+	<form v-if="!registered" @submit.prevent="signUpAction" class="form">
     <h1>Register</h1>
+		<input type="text" required placeholder="First Name" v-model="firstName">
+		<input type="text" required placeholder="Last Name" v-model="lastName">
 		<input type="text" required placeholder="Display Name" v-model="displayName">
 		<input type="email" required placeholder="Email" v-model="email">
 		<input type="password" required placeholder="Password" v-model="password">
+		<input type="password" required placeholder="Confirm Password" v-model="confirmPassword">
 		<div class="error">{{ error }}</div>
 		<button class="success">Register</button>
 		<p>Already registered? <span  @click="showLogin">Login</span> instead</p>
@@ -19,24 +22,46 @@
 import { ref } from 'vue'
 import useSignup from '../composables/useSignup'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
 export default {
-	setup(props, context) {
-		const { error, signup } = useSignup()
-		const router = useRouter()
 
+	setup() {
+		const { error, /*signup*/ } = useSignup()
+		const router = useRouter()
+		const store = useStore()
+		
 		// refs
-		const displayName = ref('')
-		const email = ref('')
-		const password = ref('')
+		const firstName = ref('Qasim')
+		const lastName = ref('Awan')
+		const displayName = ref('ARK')
+		const email = ref('qasim')
+		const password = ref('test123456')
+		const confirmPassword = ref('test123456')
 		const registered = ref(false)
 
-		const handleSubmit = async () => {
-			await signup(email.value, password.value, displayName.value)
-			console.log('user signed up')
-			if(!error.value) {
-				context.emit("signup")
-				registered.value = !registered.value
+		// const handleSubmit = async () => {
+		// 	await signup(email.value, password.value, displayName.value)
+		// 	console.log('user signed up')
+		// 	if(!error.value) {
+		// 		context.emit("signup")
+		// 		registered.value = !registered.value
+		// 	}
+		// }
+
+		const signUpAction = () => {
+			console.log(store)
+			if(password.value === confirmPassword.value) {
+				let user = {
+					firstName: firstName.value,
+					lastName: lastName.value,
+					displayName: displayName.value,
+					email: email.value,
+					password: password.value
+				}
+				store.dispatch('signUpAction', { user })
+			} else {
+				console.log('Passwords do not match!!')
 			}
 		}
 
@@ -45,13 +70,16 @@ export default {
 		}
 
 		return 	{ 
+							firstName,
+							lastName,
 							displayName,
 							email,
 							password,
-							handleSubmit,
+							confirmPassword,
 							error,
 							showLogin,
-							registered
+							registered,
+							signUpAction
 						}
 	}
 }

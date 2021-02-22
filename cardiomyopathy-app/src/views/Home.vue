@@ -1,23 +1,38 @@
 <template>
-	<h1>Home</h1>
+	<div v-if="isUserAuth">
+		<h1 >Welcome, {{ getUser.displayName }}</h1>
+		<p>You are logged in as {{ getUser.email }}</p>
+		<p>Your UID = {{ getUser.uid }}</p>
+	</div>
 	<HeartPulse v-if="loading" />
 	<button @click="handleClick" class="danger" >Click Me!</button>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import HeartPulse from '../components/HeartPulse'
+import { useStore } from 'vuex'
 
 export default {
 	components: { HeartPulse },
 	setup() {
 		const loading = ref(false)
+		const store = useStore()
+
+		const getUser = computed(() => {
+			return store.getters.getUser
+		})
+
+		const isUserAuth = computed(() => {
+			return store.getters.isUserAuth
+		})
 
 		const handleClick = () => {
+			console.log(getUser)
 			loading.value = !loading.value;
 		}
 
-		return { loading, handleClick }
+		return { loading, handleClick, getUser, isUserAuth }
 	}
 }
 </script>
