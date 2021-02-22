@@ -1,10 +1,12 @@
 <template>
 	<div>
-		<h1>Dashboard</h1>
-		<input type="text" placeholder="Line Name" v-model="lineName">
-		<input type="file" @change="parseFile" accept=".csv">
-		<button  @click="saveData" >Save</button>
-		<p v-if="error">{{ error }}</p>
+		<div class="form">
+			<h1>Dashboard</h1>
+			<input type="text" placeholder="Line Name" v-model="lineName">
+			<input type="file" @change="parseFile" accept=".csv">
+			<button @click="saveData" >Save</button>
+			<p v-if="error">{{ error }}</p>
+		</div>
 
 		<div v-if="retrievedPosts">
 			<h1>Posts</h1>
@@ -12,7 +14,7 @@
 				<div class="posts">
 					<h3>{{ post.name }}</h3>
 				</div>
-				<div class="action-buttons">
+				<div class="action-buttons-test">
 					<input type="checkbox" @change="addSeriesToArray($event, post)">
 					<span @click="deleteItem(post.id)" class="material-icons delete-button">delete</span>
 				</div>
@@ -121,29 +123,45 @@ export default {
 </script>
 
 <style>
-.posts-container {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin: 20px auto;
-	width: 200px;
-}
+	.posts-container {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin: 0 auto;
+		width: 600px;
+	}
 
-.posts {
-	margin: 0;
-}
+	.data-form {
+		width: 300px;
+		margin: 10px auto;
+	}
 
-.action-buttons  {
-	display: flex;
-	align-items: center;
-}
+	.data-form h1 {
+		font-size: 48px;
+	}
 
-.action-buttons > * {
-	margin: 10px;
-	cursor: pointer;
-}
+	.data-form label {
+		display: block;
+		padding-left: 10px;
+		text-align: left;
+		font-weight: bold;
+		font-size: 18px;
+	}
 
-.action-buttons .delete-button:hover {
-	color: red;
-}
+	.data-form input {
+		width: 100%;
+		padding: 10px;
+		border-radius: 20px;
+		font-size: 18px;
+		border: 1px solid rgb(173, 173, 173);
+		outline: none;
+		color: #999;
+		margin: 20px auto;
+		margin-top: 0;
+	}
+
+	.data-form input:focus {
+		border: 1px solid black;
+	}
+
 </style>

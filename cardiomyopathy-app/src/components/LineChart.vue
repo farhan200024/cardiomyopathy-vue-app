@@ -1,4 +1,5 @@
 <template>
+  <button @click="lineDebug" >Debug the chart</button>
 	<apexchart 
 		type="line"
 		height="350"
@@ -6,21 +7,26 @@
 		:options="chartOptions"
 		:series="series"
 	></apexchart>
-  <button @click="lineDebug" >Debug the chart</button>
 </template>
 
 <script>
 import { ref } from 'vue'
+import useChartUtils from '../composables/useChartUtils'
 
 export default {
 	props: ['series'],
 	setup(props) {
-    const xMax = ref(null)
-    const yMax = ref(null)
+    const { xMin, xMax, yMin, yMax, calcValues } = useChartUtils()
+
+    calcValues(props.series)
+    // xMin.value = (props.series[0].data[0][0] < 1 ? 0 : props.series[0].data[0][0])
+    
+    // yMin.value = (props.series[0].data[0][1] < 1 ? 0 : props.series[0].data[0][1])
+    
 
 
     xMax.value = parseFloat(props.series[0].data[props.series[0].data.length - 1][0])
-    yMax.value = parseFloat(props.series[0].data[props.series[0].data.length - 1][1])
+    // yMax.value = parseFloat(props.series[0].data[props.series[0].data.length - 1][1])
 
 		const chartOptions = ref({
 			chart: {
@@ -49,8 +55,8 @@ export default {
       // the data that goes onto the X- axis
       xaxis: {
 				type: 'numeric',
-        min: 0,
-        max: xMax.value + (xMax.value / 10),
+        min: xMin.value,
+        max: xMax.value,
         tickAmount: 5,
         labels: {
           formatter: function(value) {
@@ -63,8 +69,8 @@ export default {
         title: {
           text: "Sarcomere Length",
         },
-				min: 0,
-				max: yMax.value + ((yMax.value / 10) * 2),
+				min: yMin.value,
+				max: yMax.value,
         tickAmount: 5,
         labels: {
           formatter: function(value) {
@@ -83,10 +89,7 @@ export default {
 		})
 
 		const lineDebug = () => {
-      console.log(xMax.value)
-      console.log(xMax.value + (xMax.value / 10))
-      console.log(yMax.value)
-      console.log(yMax.value + (yMax.value / 10))
+      
 		}
 
 		return {

@@ -21,6 +21,7 @@
 		<nav class="navbar">
 			<router-link :to="{ name: 'Home' }">Home</router-link>
 			<router-link v-if="isUserAuth" :to="{ name: 'Dashboard' }">Dashboard</router-link>
+			<router-link v-if="isUserAuth" :to="{ name: 'CardiomyopathyData' }">Data</router-link>
 		</nav>
 	</header>
 </template>
@@ -87,14 +88,12 @@ export default {
 		cursor: pointer;
 		font-size: 24px;
 		text-decoration: none;
-		margin-left: 20px;
 		color: black;
 		padding: 8px 16px;
 	}
 
 	.navbar a:hover {
 		background: #dfdfdf;
-		font-weight: bold;
 	}
 
 	.navbar a.router-link-active {
