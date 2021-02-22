@@ -57,7 +57,7 @@ const routes = [
     path: '/data',
     name: 'CardiomyopathyData',
     component: CardiomyopathyData,
-    beforeEnter: authenticationGuard
+    beforeEnter: loggedOutGuard
   },
   {
     path: '/chart-example',
