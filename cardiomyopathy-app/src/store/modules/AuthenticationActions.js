@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import { projectAuth } from '@/firebase/config'
 import { ref } from 'vue';
+import router from '../../router';
 
 const error = ref(null)
 
@@ -24,7 +25,7 @@ const actions = {
 			})
 
 			error.value = null
-
+			router.push({ path: '/' })
 		return response
 
 		} catch(err) {
@@ -40,6 +41,7 @@ const actions = {
 			.then(response => {
 				console.log(response.user)
 				commit("setUser", response.user)
+				router.push({ path: '/' })
 			})
 			.catch(error => {
 				commit("setError", error.message)
@@ -52,6 +54,7 @@ const actions = {
 			.signOut()
 			.then(() => {
 				commit("setUser", null);
+				router.push({ path: '/Login' })
 			})
 			.catch(error => {
 				commit("setError", error.message);

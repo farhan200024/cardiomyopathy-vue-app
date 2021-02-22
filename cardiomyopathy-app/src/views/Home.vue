@@ -1,5 +1,5 @@
 <template>
-	<h1 v-if="isUserAuth">Welcome, {{ getUser.emailVerified }}</h1>
+	<h1 v-if="isUserAuth">Welcome, {{ getUser.displayName }}!</h1>
 	<HeartPulse v-if="loading" />
 	<button @click="handleClick" class="danger" >Click Me!</button>
 </template>

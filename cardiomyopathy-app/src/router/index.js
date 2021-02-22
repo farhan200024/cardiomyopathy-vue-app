@@ -9,18 +9,16 @@ import { projectAuth } from '../firebase/config'
 const authenticationGuard = (to, from, next) => {
   let user = projectAuth.currentUser
   console.log('current user in auth guard: ', user)
-  if(!user) {
-    next({ name: 'Login' })
-  }else {
-    next()
-  }
+  if(!user) next({ name: 'Login' })
+  else next()
 }
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    beforeEnter: authenticationGuard
   },
   {
     path: '/login',
