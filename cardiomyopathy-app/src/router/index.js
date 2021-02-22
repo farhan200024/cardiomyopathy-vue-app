@@ -50,7 +50,7 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard,
-    beforeEnter: authenticationGuard
+    beforeEnter: loggedOutGuard
   },
   {
     path: '/chart-example',
