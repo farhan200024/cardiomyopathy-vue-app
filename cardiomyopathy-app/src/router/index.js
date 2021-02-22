@@ -13,6 +13,13 @@ const authenticationGuard = (to, from, next) => {
   else next()
 }
 
+const authenticationGuard2 = (to, from, next) => {
+  let user = projectAuth.currentUser
+  console.log('current user in auth guard: ', user)
+  if(user) next({ path: '/' })
+  else next()
+}
+
 const routes = [
   {
     path: '/',
@@ -23,17 +30,20 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: Login,
+    beforeEnter: authenticationGuard2
   },
   {
     path: '/register',
     name: 'Register',
-    component: Register
+    component: Register,
+    beforeEnter: authenticationGuard2
   },
   {
     path: '/forgot-password',
     name: 'ForgotPassword',
-    component: ForgotPassword
+    component: ForgotPassword,
+    beforeEnter: authenticationGuard2
   },
   {
     path: '/chart-example',
