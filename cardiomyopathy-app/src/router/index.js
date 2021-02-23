@@ -6,6 +6,7 @@ import Dashboard from '../views/Dashboard.vue'
 import CardiomyopathyData from '../views/CardiomyopathyData.vue'
 import ForgotPassword from '../components/ForgotPassword.vue'
 import LineChartExample from '../components/LineChartExample.vue'
+import ExternalDatabase from '../views/ExternalDatabase.vue'
 import { projectAuth } from '../firebase/config'
 
 const loggedOutGuard = (to, from, next) => {
@@ -24,49 +25,54 @@ const loggedInGuard = (to, from, next) => {
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
+    path: "/",
+    name: "Home",
     component: Home,
-    beforeEnter: loggedOutGuard
+    beforeEnter: loggedOutGuard,
   },
   {
-    path: '/login',
-    name: 'Login',
+    path: "/login",
+    name: "Login",
     component: Login,
-    beforeEnter: loggedInGuard
+    beforeEnter: loggedInGuard,
   },
   {
-    path: '/register',
-    name: 'Register',
+    path: "/register",
+    name: "Register",
     component: Register,
-    beforeEnter: loggedInGuard
+    beforeEnter: loggedInGuard,
   },
   {
-    path: '/forgot-password',
-    name: 'ForgotPassword',
+    path: "/forgot-password",
+    name: "ForgotPassword",
     component: ForgotPassword,
-    beforeEnter: loggedInGuard
+    beforeEnter: loggedInGuard,
   },
   {
-    path: '/dashboard',
-    name: 'Dashboard',
+    path: "/dashboard",
+    name: "Dashboard",
     component: Dashboard,
-    beforeEnter: loggedOutGuard
+    beforeEnter: loggedOutGuard,
   },
   {
-    path: '/data',
-    name: 'CardiomyopathyData',
+    path: "/data",
+    name: "CardiomyopathyData",
     component: CardiomyopathyData,
-    beforeEnter: loggedOutGuard
+    beforeEnter: loggedOutGuard,
   },
   {
-    path: '/chart-example',
-    name: 'LineChartExample',
+    path: "/chart-example",
+    name: "LineChartExample",
     component: LineChartExample,
-    beforeEnter: loggedOutGuard
-
-  }
-]
+    beforeEnter: loggedOutGuard,
+  },
+  {
+    path: "/search",
+    name: "Search",
+    component: ExternalDatabase
+    /*beforeEnter: loggedOutGuard,*/
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
