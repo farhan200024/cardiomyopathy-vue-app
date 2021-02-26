@@ -115,3 +115,10 @@ h1 {
 .action-buttons .chart-button:hover {
 	color: rgb(16, 170, 49);
 }
+
+.error {
+	color: red;
+	font-size: 22px;
+	font-weight: bold;
+	padding: 25px;
+}

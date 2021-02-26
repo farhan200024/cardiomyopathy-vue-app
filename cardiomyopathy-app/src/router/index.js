@@ -7,6 +7,7 @@ import CardiomyopathyData from '../views/CardiomyopathyData.vue'
 import ForgotPassword from '../components/ForgotPassword.vue'
 import LineChartExample from '../components/LineChartExample.vue'
 import ExternalDatabase from '../views/ExternalDatabase.vue'
+import ExternalDatabaseTest from '../views/ExternalDatabaseTest.vue'
 import { projectAuth } from '../firebase/config'
 
 const loggedOutGuard = (to, from, next) => {
@@ -70,6 +71,12 @@ const routes = [
     path: "/search",
     name: "Search",
     component: ExternalDatabase
+    /*beforeEnter: loggedOutGuard,*/
+  },
+  {
+    path: "/search-test",
+    name: "SearchTest",
+    component: ExternalDatabaseTest
     /*beforeEnter: loggedOutGuard,*/
   },
 ];
