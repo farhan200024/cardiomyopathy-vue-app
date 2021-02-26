@@ -32,7 +32,12 @@ export default {
 			loading.value = !loading.value;
 		}
 
-		return { loading, handleClick, getUser, isUserAuth }
+		return {
+			loading,
+			handleClick,
+			getUser,
+			isUserAuth
+		}
 	}
 }
 </script>
