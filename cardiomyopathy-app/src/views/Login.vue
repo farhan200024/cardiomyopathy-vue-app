@@ -93,11 +93,6 @@ export default {
 		cursor: pointer;
 	}
 
-	.form h1 {
-		display: block;
-		border-bottom: 1px solid #dfdfdf;
-	}
-
 	.bubble {
 		background: rgba(220, 0, 0, 0.1);
 		display: flex;

@@ -21,7 +21,7 @@
 <script>
 import { ref } from 'vue'
 import useSignup from '../composables/useSignup'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { timestamp } from '../firebase/config'
 
@@ -30,25 +30,21 @@ export default {
 	setup() {
 		const { error, /*signup*/ } = useSignup()
 		const router = useRouter()
+		const route = useRoute()
 		const store = useStore()
 		
 		// refs
-		const firstName = ref('Qasim')
-		const lastName = ref('Awan')
-		const displayName = ref('ARK')
-		const email = ref('qasim')
-		const password = ref('test123456')
-		const confirmPassword = ref('test123456')
+		const firstName = ref('')
+		const lastName = ref('')
+		const displayName = ref('')
+		const email = ref('')
+		const password = ref('')
+		const confirmPassword = ref('')
 		const registered = ref(false)
-
-		// const handleSubmit = async () => {
-		// 	await signup(email.value, password.value, displayName.value)
-		// 	console.log('user signed up')
-		// 	if(!error.value) {
-		// 		context.emit("signup")
-		// 		registered.value = !registered.value
-		// 	}
-		// }
+		
+		if(route.params.email) {
+			email.value = route.params.email
+		}
 
 		const signUpAction = () => {
 			console.log(store)
