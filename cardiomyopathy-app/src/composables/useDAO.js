@@ -86,14 +86,34 @@ const addPost = async (userUID, post) => {
 					.doc(userUID)
 					.collection('series')
 					.add(post)
+					
 	} catch(err) {
 		console.log(err.message)
-		error.value = "The series could not be saved"
+		error.value = "The data could not be saved"
+	}
+}
+
+const updatePost = async (userUID, post, postID) => {
+	console.log('USER ID: ', userUID)
+	console.log('POST: ', post)
+	console.log('POST ID: ', postID)
+
+	try {
+		await projectFirestore
+					.collection('users')
+					.doc(userUID)
+					.collection('series')
+					.doc(postID)
+					.update(post)
+
+	} catch(err) {
+		console.log(err.message)
+		error.value = "There was an issue while updating the data"
 	}
 }
 
 const useDAO = () => {
-	return { addPost, retrievePosts, retrieveAllPosts, retrievedPosts, deletePost, error }
+	return { addPost, updatePost, retrievePosts, retrieveAllPosts, retrievedPosts, deletePost, error }
 }
 
 export default useDAO

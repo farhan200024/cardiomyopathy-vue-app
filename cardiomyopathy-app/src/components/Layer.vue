@@ -1,8 +1,8 @@
 <template>
 	<div class="layer">
 		<div class="layer-container">
+			<button @click="handleClick" ><span id="layer-button" class="material-icons">close</span></button>
 			<slot name="content"></slot>
-			<button class="layer-button danger" @click="handleClick" >Close</button>
 		</div>
 	</div>
 </template>
@@ -23,7 +23,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 	.layer {
 		position: fixed;
 		display: flex;
@@ -45,8 +45,30 @@ export default {
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
+		position: relative;
 	}
-	.layer-container .layer-button {
-		margin-top: 40px;
+
+	.layer-container button {
+		border: none;
+		padding: 0;
+		margin: 0;
+		background: white;
+	}
+
+	#layer-button {
+		margin: 0;
+		padding: 0;
+		border: none;
+		background: white;
+		font-size: 42px;
+		display: block;
+		position: absolute;
+		top: 20px;
+		right: 20px;
+	}
+
+	#layer-button:hover {
+		color: red;
+		cursor: pointer;
 	}
 </style>

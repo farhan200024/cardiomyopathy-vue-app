@@ -1,30 +1,27 @@
 <template>
 	<div>
-		<div class="data-form">
-			<h1>Dashboard</h1>
-			<input type="text" placeholder="Title" v-model="title" required>
-			<input type="file" @change="parseFile" accept=".csv" required>
-			<input type="text" placeholder="Cardiomyopathy Type" v-model="cardiomyopathyType" required>
-			<input type="text" placeholder="Mutation Type" v-model="mutationName" required>
-			<input type="text" placeholder="Y Axis Title" v-model="yAxisTitle" required>
-			<input type="text" placeholder="X Axis Title" v-model="xAxisTitle" required>
-			<button @click="saveData" class="success" >Save</button>
+		<div v-if="retrievedPosts" class="dashboard-container">
+			<h1>Graph Data</h1>
+			<p v-if="message" class="message">{{ message }}</p>
 			<p v-if="error">{{ error }}</p>
-		</div>
-
-		<div v-if="retrievedPosts">
-			<h1>Posts</h1>
+			<button @click="addItem" class="success add-button">Add Data</button>
 			<div v-for="post in retrievedPosts" :key="post.id" class="posts-container" >
 				<div class="posts">
 					<h3>{{ post.title }}</h3>
 				</div>
 				<div class="action-buttons">
-					<input type="checkbox" @change="addSeriesToArray($event, post)">
+					<input type="checkbox" @change="addSeriesToArray($event, post)" class="checkbox" >
+					<span @click="updateItem(post)" class="material-icons edit-button">edit</span>
 					<span @click="deleteItem(post.id)" class="material-icons delete-button">delete</span>
 				</div>
 			</div>
 			<button @click="displayChart" class="primary" >Display Chart</button>
 		</div>
+		<Layer v-if="action" @close="action = ''">
+			<template v-slot:content>
+				<GraphDataForm :action="action" :graphPost="updatePost" @close="onSuccess"/>
+			</template>
+		</Layer>
 
 		<Layer v-if="showChart && series.length !== 0" @close="showChart = !showChart" >
 			<template v-slot:content>
@@ -37,26 +34,36 @@
 <script>
 import { computed, ref } from 'vue'
 import LineChart from '../components/LineChart'
-import Layer from '../components/Layer'
-import useParseCsvToJson from '../composables/useParseCsvToJson'
 import useDAO from '../composables/useDAO'
 import { useStore } from 'vuex'
-import { timestamp } from '../firebase/config'
+import Layer from '../components/Layer.vue'
+import GraphDataForm from '../components/GraphDataForm.vue'
 
 export default {
-	components: { LineChart, Layer },
+	components: { LineChart, Layer, GraphDataForm },
 	setup() {
-		const { parseFile, data } = useParseCsvToJson()
-		const { addPost, error, retrievePosts, retrievedPosts, deletePost } = useDAO()
-		const title = ref('')
-		const cardiomyopathyType = ref('')
-		const mutationName = ref('')
-		const xAxisTitle = ref('')
-		const yAxisTitle = ref('')
-		const line = ref(null)
+		const { error, retrievePosts, retrievedPosts, deletePost } = useDAO()
 		const series = ref([])
 		const store = useStore()
 		const showChart = ref(false)
+		const updatePost = ref(null)
+		const action = ref('')
+		const message = ref('')
+
+		const onSuccess = (resp) => {
+			action.value = ''
+			message.value = resp
+		}
+
+		const addItem = () => {
+			action.value = 'add'
+			updatePost.value = null
+		}
+
+		const updateItem = (thisPost) => {
+			updatePost.value = thisPost
+			action.value = 'update'
+		}
 
 		const deleteItem = async (postID) => {
 			let success = null
@@ -77,8 +84,6 @@ export default {
 					}
 				})
 			}
-
-			console.log(series.value)
 		}
 
 		const displayChart = () => {
@@ -91,52 +96,20 @@ export default {
 
 		retrievePosts(getUser.value.uid)
 
-
-		const saveData = async () => {
-			line.value = null
-			console.log(title.value)
-			line.value = {
-				title: title.value,
-				data: JSON.stringify(data.value),
-				cardiomyopathyType: cardiomyopathyType.value,
-				mutationName: mutationName.value,
-				yTitle: yAxisTitle.value,
-				xTitle: xAxisTitle.value,
-				createdAt: timestamp()
-			}
-			// test = JSON.parse(test)
-			
-			console.log(getUser)
-			await addPost(getUser.value.uid, line.value)
-			if(error.value === null) {
-				//console.log("The data has been saved")
-				return error.value = "Data has been saved"
-			} else {
-				return error.value = "There was an error, could not save the data"
-			}
-			
-		}
-
-		const debugDashboard = () => {
-			console.log()
-		}
-
 		return {
-			saveData,
-			title,
-			cardiomyopathyType,
-			mutationName,
-			xAxisTitle,
-			yAxisTitle,
-			parseFile,
 			retrievedPosts,
 			error,
 			showChart,
 			addSeriesToArray,
 			series,
 			displayChart,
-			debugDashboard,
-			deleteItem
+			deleteItem,
+			action,
+			updateItem,
+			updatePost,
+			addItem,
+			onSuccess,
+			message
 		}
 	}
 }

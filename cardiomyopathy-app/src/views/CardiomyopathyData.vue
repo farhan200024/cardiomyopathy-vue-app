@@ -11,10 +11,10 @@
 				</tr>
 				<tr v-for="post in retrievedPosts" :key="post.id" >
 					<td>
-						<p>{{ post.name }}</p>
+						<p>{{ post.title }}</p>
 					</td>
-					<td>Phenotype</td>
-					<td>Category</td>
+					<td>{{ post.cardiomyopathyType }}</td>
+					<td>{{ post.mutationName }}</td>
 					<td class="action-buttons">
 						<span @click="displayChart(post)" class="material-icons chart-button">stacked_bar_chart</span>
 					</td>

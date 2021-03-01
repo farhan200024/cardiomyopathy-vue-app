@@ -112,6 +112,11 @@ h1 {
 .action-buttons .delete-button:hover {
 	color: red;
 }
+
+.action-buttons .edit-button:hover {
+	color: blue;
+}
+
 .action-buttons .chart-button:hover {
 	color: rgb(16, 170, 49);
 }
@@ -127,6 +132,13 @@ input[type='file'] {
 
 .error {
 	color: red;
+	font-size: 22px;
+	font-weight: bold;
+	padding: 25px;
+}
+
+.message {
+	color: green;
 	font-size: 22px;
 	font-weight: bold;
 	padding: 25px;
