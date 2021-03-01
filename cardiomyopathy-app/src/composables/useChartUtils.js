@@ -24,9 +24,9 @@ const calcValues = (allSeries) => {
 	if(xMin.value < 1) {
 		xMin.value = 0
 	}
-
-	console.log(yMax.value)
-	console.log(yMin.value)
+	// console.log(yMax.value)
+	// console.log(yMin.value)
+  console.log(allSeries)
 }
 
 const useChartUtils = () => {

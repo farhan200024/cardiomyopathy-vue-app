@@ -1,10 +1,14 @@
 <template>
 	<div>
-		<div class="form">
+		<div class="data-form">
 			<h1>Dashboard</h1>
-			<input type="text" placeholder="Line Name" v-model="lineName">
-			<input type="file" @change="parseFile" accept=".csv">
-			<button @click="saveData" >Save</button>
+			<input type="text" placeholder="Title" v-model="title" required>
+			<input type="file" @change="parseFile" accept=".csv" required>
+			<input type="text" placeholder="Cardiomyopathy Type" v-model="cardiomyopathyType" required>
+			<input type="text" placeholder="Mutation Type" v-model="mutationName" required>
+			<input type="text" placeholder="Y Axis Title" v-model="yAxisTitle" required>
+			<input type="text" placeholder="X Axis Title" v-model="xAxisTitle" required>
+			<button @click="saveData" class="success" >Save</button>
 			<p v-if="error">{{ error }}</p>
 		</div>
 
@@ -12,36 +16,43 @@
 			<h1>Posts</h1>
 			<div v-for="post in retrievedPosts" :key="post.id" class="posts-container" >
 				<div class="posts">
-					<h3>{{ post.name }}</h3>
+					<h3>{{ post.title }}</h3>
 				</div>
-				<div class="action-buttons-test">
+				<div class="action-buttons">
 					<input type="checkbox" @change="addSeriesToArray($event, post)">
 					<span @click="deleteItem(post.id)" class="material-icons delete-button">delete</span>
 				</div>
 			</div>
-			<button @click="displayChart" >Display Chart</button>
+			<button @click="displayChart" class="primary" >Display Chart</button>
 		</div>
 
-		<div v-if="showChart && series.length !== 0">
-			<LineChart :series="series"/>
-		</div>
-		<button @click="debugDashboard">Debug Dashboard</button>
+		<Layer v-if="showChart && series.length !== 0" @close="showChart = !showChart" >
+			<template v-slot:content>
+				<LineChart :series="series"/>
+			</template>
+		</Layer>
 	</div>
 </template>
 
 <script>
 import { computed, ref } from 'vue'
 import LineChart from '../components/LineChart'
+import Layer from '../components/Layer'
 import useParseCsvToJson from '../composables/useParseCsvToJson'
 import useDAO from '../composables/useDAO'
 import { useStore } from 'vuex'
+import { timestamp } from '../firebase/config'
 
 export default {
-	components: { LineChart },
+	components: { LineChart, Layer },
 	setup() {
 		const { parseFile, data } = useParseCsvToJson()
 		const { addPost, error, retrievePosts, retrievedPosts, deletePost } = useDAO()
-		const lineName = ref()
+		const title = ref('')
+		const cardiomyopathyType = ref('')
+		const mutationName = ref('')
+		const xAxisTitle = ref('')
+		const yAxisTitle = ref('')
 		const line = ref(null)
 		const series = ref([])
 		const store = useStore()
@@ -83,10 +94,15 @@ export default {
 
 		const saveData = async () => {
 			line.value = null
-			console.log(line.value)
+			console.log(title.value)
 			line.value = {
-				name: lineName.value,
-				data: JSON.stringify(data.value)
+				title: title.value,
+				data: JSON.stringify(data.value),
+				cardiomyopathyType: cardiomyopathyType.value,
+				mutationName: mutationName.value,
+				yTitle: yAxisTitle.value,
+				xTitle: xAxisTitle.value,
+				createdAt: timestamp()
 			}
 			// test = JSON.parse(test)
 			
@@ -107,7 +123,11 @@ export default {
 
 		return {
 			saveData,
-			lineName,
+			title,
+			cardiomyopathyType,
+			mutationName,
+			xAxisTitle,
+			yAxisTitle,
 			parseFile,
 			retrievedPosts,
 			error,
@@ -132,7 +152,7 @@ export default {
 	}
 
 	.data-form {
-		width: 300px;
+		width: 500px;
 		margin: 10px auto;
 	}
 

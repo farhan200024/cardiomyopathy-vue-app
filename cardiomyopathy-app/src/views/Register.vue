@@ -23,6 +23,7 @@ import { ref } from 'vue'
 import useSignup from '../composables/useSignup'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
+import { timestamp } from '../firebase/config'
 
 export default {
 
@@ -57,7 +58,8 @@ export default {
 					lastName: lastName.value,
 					displayName: displayName.value,
 					email: email.value,
-					password: password.value
+					password: password.value,
+					createdAt: timestamp()
 				}
 				store.dispatch('signUpAction', { user })
 			} else {

@@ -27,9 +27,9 @@ const actions = {
 			})
 
 			// delete the unnecessary properties from the user object.
-			delete payload.user.email
+			// delete payload.user.email
 			delete payload.user.password
-			delete payload.user.displayName
+			// delete payload.user.displayName
 			
 			// create a specific document for the user to 
 			// create collections for lines

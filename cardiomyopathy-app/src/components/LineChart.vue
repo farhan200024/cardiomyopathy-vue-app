@@ -1,5 +1,4 @@
 <template>
-  <button @click="lineDebug" >Debug the chart</button>
 	<apexchart 
 		type="line"
 		height="350"
@@ -17,6 +16,10 @@ export default {
 	props: ['series'],
 	setup(props) {
     const { xMin, xMax, yMin, yMax, calcValues } = useChartUtils()
+    const xTitle = ref(props.series[0].xTitle)
+    const yTitle = ref(props.series[0].yTitle)
+    const title = ref(props.series[0].title)
+    // const reversed = ref(props.series[0].decrementing)
 
     calcValues(props.series)
     // xMin.value = (props.series[0].data[0][0] < 1 ? 0 : props.series[0].data[0][0])
@@ -43,7 +46,7 @@ export default {
         curve: "straight",
       },
       title: {
-        text: "Product Trends by Month",
+        text: title.value,
         align: "left",
       },
       grid: {
@@ -54,6 +57,9 @@ export default {
       },
       // the data that goes onto the X- axis
       xaxis: {
+        title: {
+          text: xTitle.value,
+        },
 				type: 'numeric',
         min: xMin.value,
         max: xMax.value,
@@ -67,7 +73,7 @@ export default {
       // the text on the y axis
       yaxis: {
         title: {
-          text: "Sarcomere Length",
+          text: yTitle.value,
         },
 				min: yMin.value,
 				max: yMax.value,
