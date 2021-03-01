@@ -1,11 +1,11 @@
 <template>
-	<div>
-		<div v-if="retrievedPosts" class="dashboard-container">
-			<h1>Graph Data</h1>
+	<div class="dashboard-container">
+		<h1>Dashboard</h1>
+		<button @click="addItem" class="success add-button">Add Data</button>
+		<div v-if="userPosts.length !== 0" class="content-wrapper">
 			<p v-if="message" class="message">{{ message }}</p>
 			<p v-if="error">{{ error }}</p>
-			<button @click="addItem" class="success add-button">Add Data</button>
-			<div v-for="post in retrievedPosts" :key="post.id" class="posts-container" >
+			<div v-for="post in userPosts" :key="post.id" class="posts-container" >
 				<div class="posts">
 					<h3>{{ post.title }}</h3>
 				</div>
@@ -17,18 +17,20 @@
 			</div>
 			<button @click="displayChart" class="primary" >Display Chart</button>
 		</div>
-		<Layer v-if="action" @close="action = ''">
-			<template v-slot:content>
-				<GraphDataForm :action="action" :graphPost="updatePost" @close="onSuccess"/>
-			</template>
-		</Layer>
-
-		<Layer v-if="showChart && series.length !== 0" @close="showChart = !showChart" >
-			<template v-slot:content>
-				<LineChart :series="series"/>
-			</template>
-		</Layer>
+		<div v-else class="empty-message">
+			<p>There is no data to display!</p>
+		</div>
 	</div>
+	<Layer v-if="action" @close="action = ''">
+		<template v-slot:content>
+			<GraphDataForm :action="action" :graphPost="updatePost" @close="onSuccess"/>
+		</template>
+	</Layer>
+	<Layer v-if="showChart && series.length !== 0" @close="showChart = !showChart" >
+		<template v-slot:content>
+			<LineChart :series="series"/>
+		</template>
+	</Layer>
 </template>
 
 <script>
@@ -42,7 +44,7 @@ import GraphDataForm from '../components/GraphDataForm.vue'
 export default {
 	components: { LineChart, Layer, GraphDataForm },
 	setup() {
-		const { error, retrievePosts, retrievedPosts, deletePost } = useDAO()
+		const { error, retrievePosts, userPosts, deletePost } = useDAO()
 		const series = ref([])
 		const store = useStore()
 		const showChart = ref(false)
@@ -97,7 +99,7 @@ export default {
 		retrievePosts(getUser.value.uid)
 
 		return {
-			retrievedPosts,
+			userPosts,
 			error,
 			showChart,
 			addSeriesToArray,
@@ -116,6 +118,32 @@ export default {
 </script>
 
 <style>
+
+	.dashboard-container h1 {
+		margin: 30px;
+	}
+
+	.empty-message {
+		min-height: 70vh;
+		font-size: 26px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-content: center;
+	}
+
+	.content-wrapper {
+		min-height: 70vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-evenly;
+	}
+
+	.content-wrapper button {
+		max-width: 150px;
+		margin: 0 auto;
+	}
+
 	.posts-container {
 		display: flex;
 		justify-content: space-between;

@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<h1>Posts</h1>
-		<div v-if="retrievedPosts">
+		<div v-if="allPosts">
 			<table>
 				<tr>
 					<th>Line</th>
@@ -9,7 +9,7 @@
 					<th>Gene</th>
 					<th>Actions</th>
 				</tr>
-				<tr v-for="post in retrievedPosts" :key="post.id" >
+				<tr v-for="post in allPosts" :key="post.id" >
 					<td>
 						<p>{{ post.title }}</p>
 					</td>
@@ -39,7 +39,7 @@ import Layer from '../components/Layer'
 export default {
 	components: { LineChart, Layer },
 	setup() {
-		const { error, retrieveAllPosts, retrievedPosts } = useDAO()
+		const { error, retrieveAllPosts, allPosts } = useDAO()
 		retrieveAllPosts()
 
 		const showChart = ref(false)
@@ -62,7 +62,7 @@ export default {
 
 		return {
 			displayChart,
-			retrievedPosts,
+			allPosts,
 			showChart,
 			series
 		}

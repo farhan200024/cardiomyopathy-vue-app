@@ -1,7 +1,8 @@
 <template>
-	<div>
+	<div class="data-container">
+    <h1>Search for Data</h1>
 		<form class="options">
-			<label>Select Option: </label>
+		<label>Select Option: </label>
     <select v-model="queryOption" required>
       <option value="" selected>Choose</option>
       <option value="term">Cardiomyopathy Type</option>
@@ -65,6 +66,14 @@ export default {
 </script>
 
 <style>
+
+  .data-container {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
 	.geneInfo {
     text-align: left;
     width: 1100px;
