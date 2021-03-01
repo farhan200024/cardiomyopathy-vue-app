@@ -72,7 +72,6 @@ export default {
 		flex-direction: column;
 		justify-content: space-around;
 		min-height: 70vh;
-		border: 2px solid blue;
 	}
 
 	.home-container h1 {

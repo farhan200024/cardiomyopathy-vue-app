@@ -36,12 +36,12 @@ export default {
 		const store = useStore()
 
 		const getUser = computed(() => {
-			console.log(store.getters.getUser)
+			// console.log(store.getters.getUser)
 			return store.getters.getUser
 		})
 
 		const isUserAuth = computed(() => {
-			console.log(store.getters.isUserAuth)
+			// console.log(store.getters.isUserAuth)
 			return store.getters.isUserAuth
 		})
 
@@ -80,9 +80,10 @@ export default {
 	}
 
 	.navbar {
-		max-width: 1200px;
+		max-width: 1150px;
 		margin: 0 auto;
 		padding: 10px;
+		text-align: left;
 	}
 
 	.navbar a {
@@ -103,7 +104,6 @@ export default {
 	}
 
 	.polyline {
-		/* border: 1px solid black; */
 		margin: 10px;
 		cursor: pointer;
 	}

@@ -1,6 +1,6 @@
 <template>
+  <h1>Search for Data</h1>
 	<div class="data-container">
-    <h1>Search for Data</h1>
 		<form class="options">
 		<label>Select Option: </label>
     <select v-model="queryOption" required>
@@ -68,7 +68,7 @@ export default {
 <style>
 
   .data-container {
-    min-height: 70vh;
+    min-height: 40vh;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;

@@ -54,7 +54,7 @@ const actions = {
 			.auth()
 			.signInWithEmailAndPassword(payload.email, payload.password)
 			.then(response => {
-				console.log(response.user)
+				// console.log(response.user)
 				commit("setUser", response.user)
 				router.push({ path: '/' })
 			})

@@ -10,6 +10,7 @@ body {
 }
 
 h1 {
+	padding: 20px 0 10px 0;
 	font-size: 48px;
 	border-bottom: 1px solid #dfdfdf;
 }
@@ -17,13 +18,12 @@ h1 {
 /* form styles */
 .form {
 	width: 600px;
-	margin: 20px auto;
+	margin: 0 auto;
 }
 
 .form h1 {
   font-size: 48px;
 	display: block;
-	border-bottom: 1px solid #dfdfdf;
 }
 
 .form label {

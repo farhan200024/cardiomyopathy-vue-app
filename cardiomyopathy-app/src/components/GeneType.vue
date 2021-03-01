@@ -109,7 +109,7 @@ export default {
 					// console.log(response.data.diseaseAssoc[item])
 					if(response.data.diseaseAssoc[item].diseaseName.includes('Cardiomyopathy, Familial Hypertrophic')) {
 						diseaseId = response.data.diseaseAssoc[item].diseaseId.split(':')[1]
-						console.log(diseaseId)
+						// console.log(diseaseId)
 						break
 					}
 
@@ -129,14 +129,14 @@ export default {
 				phenotype.value = data.textSectionList
 
 				response = response = await axios.get('https://api.omim.org/api/entry/search?include=text&apiKey=lqAHOJe4Qh-rRqd50orkUg&format=json&start=0&limit=10&search=' + keyword.value)
-				console.log(response.data)
+				// console.log(response.data)
 
-				console.clear()
+				// console.clear()
 
 				data = response.data.omim.searchResponse.entryList
 
 				for(let i in data) {
-					console.log(data[i].entry.titles.preferredTitle)
+					// console.log(data[i].entry.titles.preferredTitle)
 					if(data[i].entry.titles.preferredTitle.includes(keyword.value)) {
 						title.value = data[i].entry.titles.preferredTitle.replace(';', ',')
 						break

@@ -58,7 +58,6 @@ const retrieveAllPosts = async () => {
 	allPosts.value = []
 
 	try {
-		console.log('Lets Start')
 		await projectFirestore
 					.collectionGroup('series')
 					.onSnapshot((snap) => {
@@ -71,8 +70,6 @@ const retrieveAllPosts = async () => {
 							})
 						}
 					})
-
-					console.log(allPosts)
 	} catch(err) {
 		console.log(err.message)
 	}

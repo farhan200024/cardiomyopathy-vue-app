@@ -1,7 +1,7 @@
 <template>
 	<div class="dashboard-container">
 		<h1>Dashboard</h1>
-		<button @click="addItem" class="success add-button">Add Data</button>
+		<button @click="addItem" class="success" id="add-button" >Add Data</button>
 		<div v-if="userPosts.length !== 0" class="content-wrapper">
 			<p v-if="message" class="message">{{ message }}</p>
 			<p v-if="error">{{ error }}</p>
@@ -15,7 +15,7 @@
 					<span @click="deleteItem(post.id)" class="material-icons delete-button">delete</span>
 				</div>
 			</div>
-			<button @click="displayChart" class="primary" >Display Chart</button>
+			<button @click="displayChart" class="primary" id="display-chart-button" >Display Chart</button>
 		</div>
 		<div v-else class="empty-message">
 			<p>There is no data to display!</p>
@@ -119,7 +119,7 @@ export default {
 
 <style>
 
-	.dashboard-container h1 {
+	.dashboard-container + h1 {
 		margin: 30px;
 	}
 
@@ -132,23 +132,23 @@ export default {
 		align-content: center;
 	}
 
-	.content-wrapper {
-		min-height: 70vh;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-evenly;
-	}
-
 	.content-wrapper button {
 		max-width: 150px;
 		margin: 0 auto;
 	}
 
+	#add-button {
+		margin: 20px 0;
+	}
+
+	#display-chart-button {
+		margin: 20px 0;
+	}
+
 	.posts-container {
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
-		margin: 0 auto;
+		margin: 20px auto;
 		width: 600px;
 	}
 

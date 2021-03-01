@@ -4,19 +4,21 @@
 		<div v-if="allPosts">
 			<table>
 				<tr>
+					<th>#</th>
 					<th>Line</th>
 					<th>Phenotype</th>
 					<th>Gene</th>
 					<th>Actions</th>
 				</tr>
-				<tr v-for="post in allPosts" :key="post.id" >
+				<tr v-for="(post, index) in allPosts" :key="post.id" >
+					<td>{{ index + 1 }}</td>
 					<td>
 						<p>{{ post.title }}</p>
 					</td>
 					<td>{{ post.cardiomyopathyType }}</td>
 					<td>{{ post.mutationName }}</td>
-					<td class="action-buttons">
-						<span @click="displayChart(post)" class="material-icons chart-button">stacked_bar_chart</span>
+					<td class="chart-button-wrapper">
+						<span @click="displayChart(post)" class="material-icons" id="chart-button">stacked_bar_chart</span>
 					</td>
 				</tr>
 			</table>
@@ -48,11 +50,11 @@ export default {
 
 		const displayChart = (post) => {
 			series.value.length = 0;
-			console.log(error.value)
+			// console.log(error.value)
 			showChart.value = !showChart.value
-			console.log(post)
+			// console.log(post)
 			series.value.push(post)
-			console.log(post.id)
+			// console.log(post.id)
 			// series.value = series.value.filter(line => {
 			// 	if(line.id != post.id) {
 			// 		return line;
@@ -64,7 +66,8 @@ export default {
 			displayChart,
 			allPosts,
 			showChart,
-			series
+			series,
+			error
 		}
 	}
 }
@@ -78,7 +81,7 @@ export default {
 	table {
 		border: 1px solid black;
 		width: 800px;
-		margin: 0 auto;
+		margin: 30px auto;
 	}
 
 	th {
@@ -102,4 +105,19 @@ export default {
 	tr:nth-child(odd) {
 		background: #dfdfdf;
 	}
+
+	.chart-button-wrapper {
+		text-align: center;
+	}
+
+	#chart-button {
+		margin: 14px;
+		font-size: 28px;
+	}
+
+	#chart-button:hover {
+		cursor: pointer;
+		color: green;
+	}
+
 </style>
