@@ -1,5 +1,6 @@
 <template>
-	<apexchart 
+  <p class="error" v-if="error">{{ error }}</p>
+	<apexchart v-else
 		type="line"
 		height="350"
 		width="500"
@@ -15,7 +16,7 @@ import useChartUtils from '../composables/useChartUtils'
 export default {
 	props: ['series'],
 	setup(props) {
-    const { xMin, xMax, yMin, yMax, calcValues } = useChartUtils()
+    const { error, xMin, xMax, yMin, yMax, calcValues } = useChartUtils()
     const xTitle = ref(props.series[0].xTitle)
     const yTitle = ref(props.series[0].yTitle)
     const title = ref(props.series[0].title)
@@ -94,13 +95,9 @@ export default {
       },
 		})
 
-		const lineDebug = () => {
-      
-		}
-
 		return {
 			chartOptions,
-			lineDebug
+      error
 		}
 	}
 }
