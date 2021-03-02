@@ -1,21 +1,70 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import Login from '../views/Login.vue'
+import Register from '../views/Register.vue'
+import Dashboard from '../views/Dashboard.vue'
+import CardiomyopathyData from '../views/CardiomyopathyData.vue'
+import ForgotPassword from '../components/ForgotPassword.vue'
+import ExternalDatabase from '../views/ExternalDatabase.vue'
+import { projectAuth } from '../firebase/config'
+
+const loggedOutGuard = (to, from, next) => {
+  let user = projectAuth.currentUser
+  // console.log('current user in auth guard: ', user)
+  if(!user) next({ name: 'Login' })
+  else next()
+}
+
+const loggedInGuard = (to, from, next) => {
+  let user = projectAuth.currentUser
+  // console.log('current user in auth guard: ', user)
+  if(user) next({ path: '/' })
+  else next()
+}
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
+    path: "/",
+    name: "Home",
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: "/login",
+    name: "Login",
+    component: Login,
+    beforeEnter: loggedInGuard,
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: Register,
+    beforeEnter: loggedInGuard,
+  },
+  {
+    path: "/forgot-password",
+    name: "ForgotPassword",
+    component: ForgotPassword,
+    beforeEnter: loggedInGuard,
+  },
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    component: Dashboard,
+    beforeEnter: loggedOutGuard,
+  },
+  {
+    path: "/data",
+    name: "CardiomyopathyData",
+    component: CardiomyopathyData,
+    beforeEnter: loggedOutGuard,
+  },
+  {
+    path: "/search",
+    name: "Search",
+    component: ExternalDatabase
+    /*beforeEnter: loggedOutGuard,*/
   }
-]
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

@@ -1,0 +1,146 @@
+* {
+	margin: 0;
+}
+
+body {
+	position: relative;
+	margin: 0;
+	background: #dfdfdf;
+	text-align: center;
+}
+
+h1 {
+	padding: 20px 0 10px 0;
+	font-size: 48px;
+	border-bottom: 1px solid #dfdfdf;
+}
+
+/* form styles */
+.form {
+	width: 600px;
+	margin: 0 auto;
+}
+
+.form h1 {
+  font-size: 48px;
+	display: block;
+}
+
+.form label {
+	display: block;
+	margin: 20px 0 10px;
+}
+
+.form input {
+	width: 100%;
+	padding: 20px;
+	border-radius: 20px;
+  font-size: 18px;
+	border: 1px solid rgb(173, 173, 173);
+	outline: none;
+	margin: 20px auto;
+}
+
+.form input:focus {
+	border: 1px solid black;
+}
+
+.form span {
+	font-weight: bold;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.form span:hover {
+	color: red;
+}
+
+.primary, .success, .danger, .warning{
+	cursor: pointer;
+	margin: 5px;
+	background: rgba(0, 120, 215, .8);
+	font-weight: bold;
+	color: white;
+	border: none;
+	padding: 8px 16px;
+	font-size: 18px;
+}
+
+.warning {
+	background: #FFC006;
+}
+
+.warning:hover {
+	background: orange;
+}
+
+.danger {
+	background: crimson;
+}
+
+.danger:hover {
+	background: red;
+}
+
+.primary:hover {
+	background: blue;
+}
+
+.success {
+	background: #227d6d;
+}
+
+.success:hover {
+	background: green;
+}
+
+/* action buttons */
+
+.material-icons {
+	font-size: 24px;
+}
+
+.action-buttons {
+	display: flex;
+	align-items: center;
+}
+
+.action-buttons > * {
+	cursor: pointer;
+	margin: 10px;
+}
+
+.action-buttons .delete-button:hover {
+	color: red;
+}
+
+.action-buttons .edit-button:hover {
+	color: blue;
+}
+
+.action-buttons .chart-button:hover {
+	color: rgb(16, 170, 49);
+}
+
+input[type='checkbox'] {
+	width: 18px;
+	height: 18px;
+}
+
+input[type='file'] {
+	cursor: pointer;
+}
+
+.error {
+	color: red;
+	font-size: 22px;
+	font-weight: bold;
+	padding: 25px;
+}
+
+.message {
+	color: green;
+	font-size: 22px;
+	font-weight: bold;
+	padding: 25px;
+}
