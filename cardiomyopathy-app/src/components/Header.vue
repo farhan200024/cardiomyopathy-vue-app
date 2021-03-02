@@ -20,6 +20,7 @@
 
 		<nav class="navbar">
 			<router-link :to="{ name: 'Home' }">Home</router-link>
+			<router-link :to="{ name: 'Search' }">Search Data</router-link>
 			<router-link v-if="isUserAuth" :to="{ name: 'Dashboard' }">Dashboard</router-link>
 			<router-link v-if="isUserAuth" :to="{ name: 'CardiomyopathyData' }">Data</router-link>
 		</nav>
@@ -35,12 +36,12 @@ export default {
 		const store = useStore()
 
 		const getUser = computed(() => {
-			console.log(store.getters.getUser)
+			// console.log(store.getters.getUser)
 			return store.getters.getUser
 		})
 
 		const isUserAuth = computed(() => {
-			console.log(store.getters.isUserAuth)
+			// console.log(store.getters.isUserAuth)
 			return store.getters.isUserAuth
 		})
 
@@ -79,9 +80,10 @@ export default {
 	}
 
 	.navbar {
-		max-width: 1200px;
+		max-width: 1150px;
 		margin: 0 auto;
 		padding: 10px;
+		text-align: left;
 	}
 
 	.navbar a {
@@ -102,7 +104,6 @@ export default {
 	}
 
 	.polyline {
-		/* border: 1px solid black; */
 		margin: 10px;
 		cursor: pointer;
 	}

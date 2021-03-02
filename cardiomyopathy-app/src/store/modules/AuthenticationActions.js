@@ -27,9 +27,9 @@ const actions = {
 			})
 
 			// delete the unnecessary properties from the user object.
-			delete payload.user.email
+			// delete payload.user.email
 			delete payload.user.password
-			delete payload.user.displayName
+			// delete payload.user.displayName
 			
 			// create a specific document for the user to 
 			// create collections for lines
@@ -54,7 +54,7 @@ const actions = {
 			.auth()
 			.signInWithEmailAndPassword(payload.email, payload.password)
 			.then(response => {
-				console.log(response.user)
+				// console.log(response.user)
 				commit("setUser", response.user)
 				router.push({ path: '/' })
 			})

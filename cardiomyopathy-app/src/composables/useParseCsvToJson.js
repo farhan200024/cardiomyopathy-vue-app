@@ -5,7 +5,7 @@ const data = ref([])
 let file = null
 
 const parseFile = (e) => {
-	data.value.length = 0
+	data.value = []
 	let files = e.target.files || e.dataTransfer.files
 	//console.log(files)
 	if(!files.length) {

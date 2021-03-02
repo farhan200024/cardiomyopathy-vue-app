@@ -1,51 +1,71 @@
 <template>
-	<div>
-		<div class="form">
-			<h1>Dashboard</h1>
-			<input type="text" placeholder="Line Name" v-model="lineName">
-			<input type="file" @change="parseFile" accept=".csv">
-			<button @click="saveData" >Save</button>
+	<div class="dashboard-container">
+		<h1>Dashboard</h1>
+		<button @click="addItem" class="success" id="add-button" >Add Data</button>
+		<div v-if="userPosts.length !== 0" class="content-wrapper">
+			<p v-if="message" class="message">{{ message }}</p>
 			<p v-if="error">{{ error }}</p>
-		</div>
-
-		<div v-if="retrievedPosts">
-			<h1>Posts</h1>
-			<div v-for="post in retrievedPosts" :key="post.id" class="posts-container" >
+			<div v-for="post in userPosts" :key="post.id" class="posts-container" >
 				<div class="posts">
-					<h3>{{ post.name }}</h3>
+					<h3>{{ post.title }}</h3>
 				</div>
-				<div class="action-buttons-test">
-					<input type="checkbox" @change="addSeriesToArray($event, post)">
+				<div class="action-buttons">
+					<input type="checkbox" @change="addSeriesToArray($event, post)" class="checkbox" >
+					<span @click="updateItem(post)" class="material-icons edit-button">edit</span>
 					<span @click="deleteItem(post.id)" class="material-icons delete-button">delete</span>
 				</div>
 			</div>
-			<button @click="displayChart" >Display Chart</button>
+			<button @click="displayChart" class="primary" id="display-chart-button" >Display Chart</button>
 		</div>
-
-		<div v-if="showChart && series.length !== 0">
-			<LineChart :series="series"/>
+		<div v-else class="empty-message">
+			<p>There is no data to display!</p>
 		</div>
-		<button @click="debugDashboard">Debug Dashboard</button>
 	</div>
+	<Layer v-if="action" @close="action = ''">
+		<template v-slot:content>
+			<GraphDataForm :action="action" :graphPost="updatePost" @close="onSuccess"/>
+		</template>
+	</Layer>
+	<Layer v-if="showChart && series.length !== 0" @close="showChart = !showChart" >
+		<template v-slot:content>
+			<LineChart :series="series"/>
+		</template>
+	</Layer>
 </template>
 
 <script>
 import { computed, ref } from 'vue'
 import LineChart from '../components/LineChart'
-import useParseCsvToJson from '../composables/useParseCsvToJson'
 import useDAO from '../composables/useDAO'
 import { useStore } from 'vuex'
+import Layer from '../components/Layer.vue'
+import GraphDataForm from '../components/GraphDataForm.vue'
 
 export default {
-	components: { LineChart },
+	components: { LineChart, Layer, GraphDataForm },
 	setup() {
-		const { parseFile, data } = useParseCsvToJson()
-		const { addPost, error, retrievePosts, retrievedPosts, deletePost } = useDAO()
-		const lineName = ref()
-		const line = ref(null)
+		const { error, retrievePosts, userPosts, deletePost } = useDAO()
 		const series = ref([])
 		const store = useStore()
 		const showChart = ref(false)
+		const updatePost = ref(null)
+		const action = ref('')
+		const message = ref('')
+
+		const onSuccess = (resp) => {
+			action.value = ''
+			message.value = resp
+		}
+
+		const addItem = () => {
+			action.value = 'add'
+			updatePost.value = null
+		}
+
+		const updateItem = (thisPost) => {
+			updatePost.value = thisPost
+			action.value = 'update'
+		}
 
 		const deleteItem = async (postID) => {
 			let success = null
@@ -66,8 +86,6 @@ export default {
 					}
 				})
 			}
-
-			console.log(series.value)
 		}
 
 		const displayChart = () => {
@@ -80,59 +98,62 @@ export default {
 
 		retrievePosts(getUser.value.uid)
 
-
-		const saveData = async () => {
-			line.value = null
-			console.log(line.value)
-			line.value = {
-				name: lineName.value,
-				data: JSON.stringify(data.value)
-			}
-			// test = JSON.parse(test)
-			
-			console.log(getUser)
-			await addPost(getUser.value.uid, line.value)
-			if(error.value === null) {
-				//console.log("The data has been saved")
-				return error.value = "Data has been saved"
-			} else {
-				return error.value = "There was an error, could not save the data"
-			}
-			
-		}
-
-		const debugDashboard = () => {
-			console.log()
-		}
-
 		return {
-			saveData,
-			lineName,
-			parseFile,
-			retrievedPosts,
+			userPosts,
 			error,
 			showChart,
 			addSeriesToArray,
 			series,
 			displayChart,
-			debugDashboard,
-			deleteItem
+			deleteItem,
+			action,
+			updateItem,
+			updatePost,
+			addItem,
+			onSuccess,
+			message
 		}
 	}
 }
 </script>
 
 <style>
+
+	.dashboard-container + h1 {
+		margin: 30px;
+	}
+
+	.empty-message {
+		min-height: 70vh;
+		font-size: 26px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-content: center;
+	}
+
+	.content-wrapper button {
+		max-width: 150px;
+		margin: 0 auto;
+	}
+
+	#add-button {
+		margin: 20px 0;
+	}
+
+	#display-chart-button {
+		margin: 20px 0;
+	}
+
 	.posts-container {
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
-		margin: 0 auto;
+		margin: 20px auto;
 		width: 600px;
 	}
 
 	.data-form {
-		width: 300px;
+		width: 500px;
 		margin: 10px auto;
 	}
 

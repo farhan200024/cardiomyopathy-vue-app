@@ -1,26 +1,27 @@
 <template>
+	<div class="login-container">
+		<form v-if="!forgottenPassword" @submit.prevent="signInAction" class="form">
+			<h1>Login</h1>
+			<div v-if="emailVerificationSent" class="bubble" >
+				<p>{{ emailVerificationSent }}</p><p @click="emailVerificationSent = null" >X</p>
+			</div>
+			<input type="email" required placeholder="Email" v-model="email">
+			<input type="password" required placeholder="Password" v-model="password">
+			<p class="reset-password" @click="forgottenPassword = !forgottenPassword" >Forgotten Password?</p>
+			<div v-if="error" class="error">{{ error }}</div>
+			<button class="primary" >Log In</button>
+			<p>No account yet? <span  @click="showSignup">Register</span> instead</p>
+		</form>
 
-	<form v-if="!forgottenPassword" @submit.prevent="signInAction" class="form">
-    <h1>Login</h1>
-		<div v-if="emailVerificationSent" class="bubble" >
-			<p>{{ emailVerificationSent }}</p><p @click="emailVerificationSent = null" >X</p>
-		</div>
-		<input type="email" required placeholder="Email" v-model="email">
-		<input type="password" required placeholder="Password" v-model="password">
-		<p class="reset-password" @click="forgottenPassword = !forgottenPassword" >Forgotten Password?</p>
-		<div class="error">{{ error }}</div>
-		<button class="primary" >Log In</button>
-		<p>No account yet? <span  @click="showSignup">Register</span> instead</p>
-	</form>
-
-	<form v-else @submit.prevent="handleResetPassword" class="form">
-		<h1>Reset Password</h1>
-		<p>Please enter your email address to reset your password.</p>
-		<input type="email" required placeholder="Email" v-model="email">
-		<div class="error" v-if="resetPasswordError">{{ resetPasswordError }}</div>
-		<button class="danger" >Reset Password</button>
-		<button class="warning" @click.prevent="forgottenPassword = !forgottenPassword"  >Cancel</button>
-	</form>
+		<form v-else @submit.prevent="handleResetPassword" class="form">
+			<h1>Reset Password</h1>
+			<p>Please enter your email address to reset your password.</p>
+			<input type="email" required placeholder="Email" v-model="email">
+			<div class="error" v-if="resetPasswordError">{{ resetPasswordError }}</div>
+			<button class="danger" >Reset Password</button>
+			<button class="warning" @click.prevent="forgottenPassword = !forgottenPassword"  >Cancel</button>
+		</form>
+	</div>
 </template>
 
 <script>
@@ -86,16 +87,19 @@ export default {
 </script>
 
 <style>
+
+	.login-container {
+		min-height: 70vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
 	.reset-password {
 		margin-bottom: 20px;
 		font-weight: bold;
 		text-decoration: underline;
 		cursor: pointer;
-	}
-
-	.form h1 {
-		display: block;
-		border-bottom: 1px solid #dfdfdf;
 	}
 
 	.bubble {

@@ -34,14 +34,12 @@ export default {
 
 .container {
   text-align: center;
-  border: 1px solid blue;
 }
 
 .content {
   display: block;
   max-width: 1200px;
   margin: 0 auto;
-  border: 1px solid red;
   background: white;
 }
 

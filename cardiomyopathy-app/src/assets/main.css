@@ -10,6 +10,7 @@ body {
 }
 
 h1 {
+	padding: 20px 0 10px 0;
 	font-size: 48px;
 	border-bottom: 1px solid #dfdfdf;
 }
@@ -17,11 +18,12 @@ h1 {
 /* form styles */
 .form {
 	width: 600px;
-	margin: 20px auto;
+	margin: 0 auto;
 }
 
 .form h1 {
   font-size: 48px;
+	display: block;
 }
 
 .form label {
@@ -36,7 +38,6 @@ h1 {
   font-size: 18px;
 	border: 1px solid rgb(173, 173, 173);
 	outline: none;
-	color: #999;
 	margin: 20px auto;
 }
 
@@ -86,7 +87,7 @@ h1 {
 }
 
 .success {
-	background: #5ae4ca;
+	background: #227d6d;
 }
 
 .success:hover {
@@ -96,28 +97,49 @@ h1 {
 /* action buttons */
 
 .material-icons {
-	padding: 10px;
 	font-size: 24px;
 }
 
-.action-buttons-test {
+.action-buttons {
 	display: flex;
 	align-items: center;
 }
 
 .action-buttons > * {
 	cursor: pointer;
+	margin: 10px;
 }
 
 .action-buttons .delete-button:hover {
 	color: red;
 }
+
+.action-buttons .edit-button:hover {
+	color: blue;
+}
+
 .action-buttons .chart-button:hover {
 	color: rgb(16, 170, 49);
 }
 
+input[type='checkbox'] {
+	width: 18px;
+	height: 18px;
+}
+
+input[type='file'] {
+	cursor: pointer;
+}
+
 .error {
 	color: red;
+	font-size: 22px;
+	font-weight: bold;
+	padding: 25px;
+}
+
+.message {
+	color: green;
 	font-size: 22px;
 	font-weight: bold;
 	padding: 25px;

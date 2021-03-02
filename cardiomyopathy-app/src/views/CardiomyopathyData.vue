@@ -1,43 +1,47 @@
 <template>
 	<div>
 		<h1>Posts</h1>
-		<div v-if="retrievedPosts">
+		<div v-if="allPosts">
 			<table>
 				<tr>
-					<th>Line</th>
-					<th>Categories</th>
+					<th>#</th>
+					<th>Title</th>
+					<th>Phenotype</th>
+					<th>Gene</th>
 					<th>Actions</th>
 				</tr>
-				<tr v-for="post in retrievedPosts" :key="post.id" >
+				<tr v-for="(post, index) in allPosts" :key="post.id" >
+					<td>{{ index + 1 }}</td>
 					<td>
-						<p>{{ post.name }}</p>
+						<p>{{ post.title }}</p>
 					</td>
-					<td>Category</td>
-					<td class="action-buttons">
-						<span @click="displayChart(post)" class="material-icons chart-button">stacked_bar_chart</span>
-						<span @click="deleteItem(post.id)" class="material-icons delete-button">delete</span>
+					<td>{{ post.cardiomyopathyType }}</td>
+					<td>{{ post.mutationName }}</td>
+					<td class="chart-button-wrapper">
+						<span @click="displayChart(post)" class="material-icons" id="chart-button">stacked_bar_chart</span>
 					</td>
 				</tr>
 			</table>
 		</div>
 	</div>
-	<div class="chart-layer" v-if="showChart">
-		<div v-if="showChart && series.length !== 0" class="chart-container">
+	<Layer v-if="showChart && series.length !== 0" @close="showChart = !showChart" >
+		<template v-slot:content>
 			<LineChart :series="series"/>
-			<button class="chart-button" @click="showChart = !showChart">Close</button>
-		</div>
-	</div>
+		</template>
+	</Layer>
+	
 </template>
 
 <script>
 import { ref } from 'vue'
 import useDAO from '../composables/useDAO'
 import LineChart from '../components/LineChart'
+import Layer from '../components/Layer'
 
 export default {
-	components: { LineChart },
+	components: { LineChart, Layer },
 	setup() {
-		const { error, retrieveAllPosts, retrievedPosts } = useDAO()
+		const { error, retrieveAllPosts, allPosts } = useDAO()
 		retrieveAllPosts()
 
 		const showChart = ref(false)
@@ -46,11 +50,11 @@ export default {
 
 		const displayChart = (post) => {
 			series.value.length = 0;
-			console.log(error.value)
+			// console.log(error.value)
 			showChart.value = !showChart.value
-			console.log(post)
+			// console.log(post)
 			series.value.push(post)
-			console.log(post.id)
+			// console.log(post.id)
 			// series.value = series.value.filter(line => {
 			// 	if(line.id != post.id) {
 			// 		return line;
@@ -60,9 +64,10 @@ export default {
 
 		return {
 			displayChart,
-			retrievedPosts,
+			allPosts,
 			showChart,
-			series
+			series,
+			error
 		}
 	}
 }
@@ -76,7 +81,7 @@ export default {
 	table {
 		border: 1px solid black;
 		width: 800px;
-		margin: 0 auto;
+		margin: 30px auto;
 	}
 
 	th {
@@ -101,29 +106,18 @@ export default {
 		background: #dfdfdf;
 	}
 
-	.chart-layer {
-		position: fixed;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		z-index: 1;
+	.chart-button-wrapper {
 		text-align: center;
-		background: rgb(176,176,176,0.7);
 	}
 
-	.chart-container {
-		width: 80%;
-		height: 80%;
-		background: white;display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-direction: column;
+	#chart-button {
+		margin: 14px;
+		font-size: 28px;
 	}
-	.chart-container .chart-button {
-		margin-top: 40px;
+
+	#chart-button:hover {
+		cursor: pointer;
+		color: green;
 	}
+
 </style>

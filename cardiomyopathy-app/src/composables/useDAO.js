@@ -2,7 +2,8 @@ import { projectFirestore } from '@/firebase/config'
 import { ref } from 'vue'
 
 const error = ref(null)
-const retrievedPosts = ref([])
+const allPosts = ref([])
+const userPosts = ref([])
 
 const deletePost = async (userUID, postUID) => {
 	error.value = null
@@ -24,7 +25,7 @@ const deletePost = async (userUID, postUID) => {
 
 const retrievePosts = async (userUID) => {
 	error.value = null
-	retrievedPosts.value.length = 0
+	userPosts.value = []
 
 	try {
 		await projectFirestore
@@ -32,11 +33,11 @@ const retrievePosts = async (userUID) => {
 						.doc(userUID)
 						.collection('series')
 						.onSnapshot((snap) => {
-							retrievedPosts.value = snap.docs.map(doc => {
+							userPosts.value = snap.docs.map(doc => {
 								return { ...doc.data(), id: doc.id }
 							})
-							if(retrievedPosts.value){
-								retrievedPosts.value.map(post => {
+							if(userPosts.value){
+								userPosts.value.map(post => {
 									post.data = JSON.parse(post.data)
 								})
 							}
@@ -54,24 +55,21 @@ const retrievePosts = async (userUID) => {
 
 const retrieveAllPosts = async () => {
 	error.value = null
-	retrievedPosts.value.length = 0
+	allPosts.value = []
 
 	try {
-		console.log('Lets Start')
 		await projectFirestore
 					.collectionGroup('series')
 					.onSnapshot((snap) => {
-						retrievedPosts.value = snap.docs.map(doc => {
+						allPosts.value = snap.docs.map(doc => {
 							return { ...doc.data(), id: doc.id }
 						})
-						if(retrievedPosts.value){
-							retrievedPosts.value.map(post => {
+						if(allPosts.value){
+							allPosts.value.map(post => {
 								post.data = JSON.parse(post.data)
 							})
 						}
 					})
-
-					console.log(retrievedPosts)
 	} catch(err) {
 		console.log(err.message)
 	}
@@ -86,14 +84,31 @@ const addPost = async (userUID, post) => {
 					.doc(userUID)
 					.collection('series')
 					.add(post)
+					
 	} catch(err) {
 		console.log(err.message)
-		error.value = "The series could not be saved"
+		error.value = "The data could not be saved"
+	}
+}
+
+const updatePost = async (userUID, post, postID) => {
+
+	try {
+		await projectFirestore
+					.collection('users')
+					.doc(userUID)
+					.collection('series')
+					.doc(postID)
+					.update(post)
+
+	} catch(err) {
+		console.log(err.message)
+		error.value = "There was an issue while updating the data"
 	}
 }
 
 const useDAO = () => {
-	return { addPost, retrievePosts, retrieveAllPosts, retrievedPosts, deletePost, error }
+	return { addPost, updatePost, retrievePosts, retrieveAllPosts, allPosts, userPosts, deletePost, error }
 }
 
 export default useDAO
