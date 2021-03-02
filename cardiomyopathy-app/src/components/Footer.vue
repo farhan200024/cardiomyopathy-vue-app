@@ -2,7 +2,7 @@
   <footer>
     <div class = "wrapper-footer">
       <nav class = "navbar-footer">
-				<router-link :to = "{ name: 'Home' }">Help</router-link>
+				<router-link :to = "{ name: 'Help' }">Help</router-link>
       </nav>
 			<router-link class = "polyline-footer" :to = "{ name: 'Home' }">
 				<svg version = "1.0" xmlns = "http://www.w3.org/2000/svg" xmlns:xlink = "http://www.w3.org/1999/xlink" x = "0px" y = "0px" width = "100px" height = "38px" viewBox = "0 0 150 73" enable-background = "new 0 0 150 73" xml:space = "preserve">

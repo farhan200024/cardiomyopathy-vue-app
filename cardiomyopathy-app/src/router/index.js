@@ -7,6 +7,7 @@ import CardiomyopathyData from '../views/CardiomyopathyData.vue'
 import ForgotPassword from '../components/ForgotPassword.vue'
 import ExternalDatabase from '../views/ExternalDatabase.vue'
 import { projectAuth } from '../firebase/config'
+import Help from '../views/Help.vue'
 
 const loggedOutGuard = (to, from, next) => {
   let user = projectAuth.currentUser
@@ -27,6 +28,11 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home
+  },
+  {
+    path: "/help",
+    name: "Help",
+    component: Help
   },
   {
     path: "/login",
