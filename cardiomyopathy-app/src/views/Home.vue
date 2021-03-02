@@ -12,19 +12,19 @@
 				<button class="success" >Sign Up - It's free</button>
 			</form>
 		</div>
-
-
 	</div>
+	<NewsFeed />
 </template>
 
 <script>
 import { computed, ref } from 'vue'
 // import HeartPulse from '../components/HeartPulse'
+import NewsFeed from '../components/NewsFeed'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 
 export default {
-	// components: { HeartPulse },
+	components: { NewsFeed },
 	setup() {
 		const loading = ref(false)
 		const store = useStore()
