@@ -5,7 +5,7 @@
 			<table>
 				<tr>
 					<th>#</th>
-					<th>Line</th>
+					<th>Title</th>
 					<th>Phenotype</th>
 					<th>Gene</th>
 					<th>Actions</th>
