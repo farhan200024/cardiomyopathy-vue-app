@@ -1,15 +1,24 @@
 <template>
-	<form v-if="!registered" @submit.prevent="signUpAction" class="form">
-    <h1>Register</h1>
-		<input type="text" required placeholder="First Name" v-model="firstName">
-		<input type="text" required placeholder="Last Name" v-model="lastName">
-		<input type="text" required placeholder="Display Name" v-model="displayName">
-		<input type="email" required placeholder="Email" v-model="email">
-		<input type="password" required placeholder="Password" v-model="password">
-		<input type="password" required placeholder="Confirm Password" v-model="confirmPassword">
-		<div class="error">{{ error }}</div>
+	<form v-if="!registered" @submit.prevent="signUpAction">
+		<div class="form">
+			<h1>Register</h1>
+			<div class="form-name-fields">
+				<input type="text" placeholder="First Name" v-model="firstName" required>
+				<input type="text" placeholder="Last Name" v-model="lastName" required>
+			</div>
+			<input type="text" placeholder="Display Name" v-model="displayName" required>
+			<input type="text" placeholder="Address" v-model="address" >
+			<input type="tel" placeholder="Phone Number" v-model="telNumber" >
+			<input type="text" placeholder="Institituional Affiliation" v-model="institution" required>
+			<input type="email" placeholder="Email" v-model="email" required>
+			<div class="form-password-fields">
+				<input type="password" placeholder="Password" v-model="password" required>
+				<input type="password" placeholder="Confirm Password" v-model="confirmPassword" required>
+			</div>
+		</div>
+		<div v-if="error" class="error">{{ error }}</div>
 		<button class="success">Register</button>
-		<p>Already registered? <span  @click="showLogin">Login</span> instead</p>
+		<p class="ext-link" >Already registered? <span  @click="showLogin">Login</span> instead</p>
 	</form>
 	<div v-else class="email-verification-card">
 		<p>A verification Email has be sent at:</p>
@@ -37,6 +46,9 @@ export default {
 		const firstName = ref('')
 		const lastName = ref('')
 		const displayName = ref('')
+		const address = ref('')
+		const telNumber = ref('')
+		const institution = ref('')
 		const email = ref('')
 		const password = ref('')
 		const confirmPassword = ref('')
@@ -53,6 +65,9 @@ export default {
 					firstName: firstName.value,
 					lastName: lastName.value,
 					displayName: displayName.value,
+					address: address.value,
+					telNumber: telNumber.value,
+					institution: institution.value,
 					email: email.value,
 					password: password.value,
 					createdAt: timestamp()
@@ -71,6 +86,9 @@ export default {
 							firstName,
 							lastName,
 							displayName,
+							address,
+							telNumber,
+							institution,
 							email,
 							password,
 							confirmPassword,
@@ -84,6 +102,11 @@ export default {
 </script>
 
 <style>
+
+	.ext-link {
+		margin: 25px;
+	}
+
 	.email-verification-card {
 		height: 500px;
 		align-items: center;
@@ -101,4 +124,13 @@ export default {
 	.email-verification-card h1 {
 		font-size: 48px;
 	}
+
+	.form-name-fields, .form-password-fields {
+		display: flex;
+		justify-content: space-between;
+		align-content: space-between;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
 </style>

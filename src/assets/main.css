@@ -16,8 +16,10 @@ h1 {
 
 /* form styles */
 .form {
-	width: 600px;
+	width: 700px;
 	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
 }
 
 .form h1 {
@@ -38,19 +40,20 @@ h1 {
 	border: 1px solid rgb(173, 173, 173);
 	outline: none;
 	margin: 20px auto;
+	box-sizing: border-box;
 }
 
 .form input:focus {
 	border: 1px solid black;
 }
 
-.form span {
+.ext-link span {
 	font-weight: bold;
 	text-decoration: underline;
 	cursor: pointer;
 }
 
-.form span:hover {
+.ext-link span:hover {
 	color: red;
 }
 

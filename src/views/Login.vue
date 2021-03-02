@@ -1,22 +1,26 @@
 <template>
 	<div class="login-container">
-		<form v-if="!forgottenPassword" @submit.prevent="signInAction" class="form">
-			<h1>Login</h1>
-			<div v-if="emailVerificationSent" class="bubble" >
-				<p>{{ emailVerificationSent }}</p><p @click="emailVerificationSent = null" >X</p>
+		<form v-if="!forgottenPassword" @submit.prevent="signInAction">
+			<div class="form">
+				<h1>Login</h1>
+				<div v-if="emailVerificationSent" class="bubble" >
+					<p>{{ emailVerificationSent }}</p><p @click="emailVerificationSent = null" >X</p>
+				</div>
+				<input type="email" required placeholder="Email" v-model="email">
+				<input type="password" required placeholder="Password" v-model="password">
+				<p class="reset-password" @click="forgottenPassword = !forgottenPassword" >Forgotten Password?</p>
 			</div>
-			<input type="email" required placeholder="Email" v-model="email">
-			<input type="password" required placeholder="Password" v-model="password">
-			<p class="reset-password" @click="forgottenPassword = !forgottenPassword" >Forgotten Password?</p>
 			<div v-if="error" class="error">{{ error }}</div>
 			<button class="primary" >Log In</button>
-			<p>No account yet? <span  @click="showSignup">Register</span> instead</p>
+			<p class="ext-link">No account yet? <span  @click="showSignup">Register</span> instead</p>
 		</form>
 
-		<form v-else @submit.prevent="handleResetPassword" class="form">
-			<h1>Reset Password</h1>
-			<p>Please enter your email address to reset your password.</p>
-			<input type="email" required placeholder="Email" v-model="email">
+		<form v-else @submit.prevent="handleResetPassword">
+			<div class="form">
+				<h1>Reset Password</h1>
+				<p>Please enter your email address to reset your password.</p>
+				<input type="email" required placeholder="Email" v-model="email">
+			</div>
 			<div class="error" v-if="resetPasswordError">{{ resetPasswordError }}</div>
 			<button class="danger" >Reset Password</button>
 			<button class="warning" @click.prevent="forgottenPassword = !forgottenPassword"  >Cancel</button>
@@ -99,7 +103,11 @@ export default {
 		margin-bottom: 20px;
 		font-weight: bold;
 		text-decoration: underline;
+	}
+
+	.reset-password:hover {
 		cursor: pointer;
+		color: red;
 	}
 
 	.bubble {
