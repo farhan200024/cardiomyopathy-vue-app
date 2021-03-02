@@ -64,6 +64,7 @@ export default {
 
 	header {
 		background: white;
+		border-bottom: 1px solid #dfdfdf;
 	}
 
 	.wrapper {
