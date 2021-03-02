@@ -5,15 +5,17 @@
       <router-view />
     </div>
   </article>
+  <Footer />
 </template>
 
 <script>
 import Header from './components/Header'
+import Footer from './components/Footer'
 import { useStore } from 'vuex'
 import { onMounted } from 'vue'
 
 export default {
-  components: { Header },
+  components: { Header, Footer },
   setup() {
     const store = useStore()
 
