@@ -37,25 +37,22 @@ export default {
 
 <style>
 
-    footer {
+  footer {
 		background: white;
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        text-align: center;
+		border: 1px solid #dfdfdf;
+    text-align: center;
 	}
 
 	.wrapper-footer {
 		max-width: 1200px;
 		margin: 0 auto;
-        margin-right: 0%;
+    margin-right: 0%;
 		display: flex;
 		padding: 5px;
-        padding-right: 0%;
-		justify-content: space-between;
+    padding-right: 0%;
+		justify-content: space-evenly;
 		align-items: center;
-        flex-direction: row;
+    flex-direction: row;
 	}
 
 	footer .wrapper-footer {
@@ -65,7 +62,7 @@ export default {
 	.navbar-footer {
 		max-width: 1150px;
 		padding-right: 0%;
-        margin-left: 0%;
+    margin-left: 0%;
 		padding: 10px;
 		text-align: left;
         width: 30%;
