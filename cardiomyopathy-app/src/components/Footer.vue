@@ -2,15 +2,15 @@
   
     <footer>
 
-        <div class = "wrapperFooter">
+        <div class = "wrapper-footer">
 
-            <nav class = "navbarFooter">
+            <nav class = "navbar-footer">
             
                 <router-link :to = "{ name: 'Home' }">Help</router-link>
 
             </nav>
 
-			<router-link class = "polylineFooter" :to = "{ name: 'Home' }">
+			<router-link class = "polyline-footer" :to = "{ name: 'Home' }">
 				<svg version = "1.0" xmlns = "http://www.w3.org/2000/svg" xmlns:xlink = "http://www.w3.org/1999/xlink" x = "0px" y = "0px" width = "100px" height = "38px" viewBox = "0 0 150 73" enable-background = "new 0 0 150 73" xml:space = "preserve">
 					<polyline fill = "none" stroke = "green" stroke-width = "3" stroke-miterlimit = "10" points = "0,45.486 38.514,45.486 44.595,33.324 50.676,45.486 57.771,45.486 62.838,55.622 71.959,9 80.067,63.729 84.122,45.486 97.297,45.486 103.379,40.419 110.473,45.486 150,45.486" />
 				</svg>
@@ -46,7 +46,7 @@ export default {
         text-align: center;
 	}
 
-	.wrapperFooter {
+	.wrapper-footer {
 		max-width: 1200px;
 		margin: 0 auto;
         margin-right: 0%;
@@ -58,11 +58,11 @@ export default {
         flex-direction: row;
 	}
 
-	footer .wrapperFooter {
+	footer .wrapper-footer {
 		color: #dfdfdf;
 	}
 
-	.navbarFooter {
+	.navbar-footer {
 		max-width: 1150px;
 		padding-right: 0%;
         margin-left: 0%;
@@ -72,7 +72,7 @@ export default {
         
 	}
 
-	.navbarFooter a {
+	.navbar-footer a {
 		cursor: pointer;
 		font-size: 24px;
 		text-decoration: none;
@@ -80,22 +80,22 @@ export default {
 		padding: 8px 16px;
 	}
 
-	.navbarFooter a:hover {
+	.navbar-footer a:hover {
 		background: #dfdfdf;
 	}
 
-	.navbarFooter a.router-link-active {
+	.navbar-footer a.router-link-active {
 		font-weight: bold;
 		text-decoration: underline;
 	}
 
-	.polylineFooter {
+	.polyline-footer {
 		margin: 10px;
 		cursor: pointer;
         position: relative;
 	}
 
-	.polylineFooter svg {
+	.polyline-footer svg {
 		width: 100px;
 		height: 38px;
         
