@@ -1,30 +1,46 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+  <Header />
+  <article class="container">
+    <div class="content">
+      <router-view />
+    </div>
+  </article>
 </template>
+
+<script>
+import Header from './components/Header'
+import { useStore } from 'vuex'
+import { onMounted } from 'vue'
+
+export default {
+  components: { Header },
+  setup() {
+    const store = useStore()
+
+    onMounted(() => {
+      store.dispatch('authAction')
+    })
+  }
+}
+</script>
 
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+}
+
+.container {
   text-align: center;
-  color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
+.content {
+  display: block;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
