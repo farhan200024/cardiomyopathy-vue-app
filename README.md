@@ -1,3 +1,24 @@
-# cardiomyopathy-vue-app
+# cardiomyopathy-app
 
-Do not delete any feature branches after merging it with the develop branch
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
