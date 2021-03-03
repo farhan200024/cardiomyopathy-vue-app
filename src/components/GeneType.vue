@@ -1,7 +1,8 @@
 <template>
-	<div v-if="error">
+	<!-- <div v-if="error">
 		<p class="error">{{error}}</p>
-	</div>
+	</div> -->
+	<MessageBubble v-if="error" :message="error" @close="error = ''" />
   <div v-else class="geneInfo">
 		<div v-if="title">
 			<div>
@@ -52,11 +53,12 @@
 <script>
 import { computed, ref, watch } from 'vue'
 import HeartPulse from '../components/HeartPulse'
+import MessageBubble from '../components/MessageBubble.vue'
 import Accordion from '../components/Accordion'
 import axios from 'axios'
 
 export default {
-	components: { HeartPulse, Accordion },
+	components: { HeartPulse, Accordion, MessageBubble },
 	props: ['keyword', 'option'],
 	setup(props) {
 		const title = ref('')

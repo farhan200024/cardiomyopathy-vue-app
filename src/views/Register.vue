@@ -16,23 +16,22 @@
 				<input type="password" placeholder="Confirm Password" v-model="confirmPassword" required>
 			</div>
 		</div>
-		<div v-if="error" class="error">{{ error }}</div>
+		<MessageBubble v-if="error" :message="error" @close="toggleErrorState" />
 		<button class="success">Register</button>
 		<p class="ext-link" >Already registered? <span  @click="showLogin">Login</span> instead</p>
 	</form>
 </template>
 
 <script>
-import { ref } from 'vue'
-import useSignup from '../composables/useSignup'
+import { computed, ref } from 'vue'
+import MessageBubble from '../components/MessageBubble.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { timestamp } from '../firebase/config'
 
 export default {
-
+	components: { MessageBubble },
 	setup() {
-		const { error, /*signup*/ } = useSignup()
 		const router = useRouter()
 		const route = useRoute()
 		const store = useStore()
@@ -72,6 +71,14 @@ export default {
 			}
 		}
 
+		const toggleErrorState = () => {
+			store.commit("setError", null)
+		}
+
+		const error = computed(() => {
+			return store.getters.getError
+		})
+
 		const showLogin = () => {
 			router.push({ name: 'Login' })
 		}
@@ -86,9 +93,10 @@ export default {
 							email,
 							password,
 							confirmPassword,
-							error,
 							showLogin,
-							signUpAction
+							signUpAction,
+							toggleErrorState,
+							error
 						}
 	}
 }

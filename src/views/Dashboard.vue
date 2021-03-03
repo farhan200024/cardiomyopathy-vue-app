@@ -3,8 +3,8 @@
 		<h1>Dashboard</h1>
 		<button @click="addItem" class="success" id="add-button" >Add Data</button>
 		<div v-if="userPosts.length !== 0" class="content-wrapper">
-			<p v-if="message" class="message">{{ message }}</p>
-			<p v-if="error">{{ error }}</p>
+			<MessageBubble v-if="message" :message="message" @close="message = ''" />
+			<MessageBubble v-if="error" :message="error" @close="error = null" />
 			<div v-for="post in userPosts" :key="post.id" class="posts-container" >
 				<div class="posts">
 					<h3>{{ post.title }}</h3>
@@ -39,10 +39,11 @@ import LineChart from '../components/LineChart'
 import useDAO from '../composables/useDAO'
 import { useStore } from 'vuex'
 import Layer from '../components/Layer.vue'
+import MessageBubble from '../components/MessageBubble.vue'
 import GraphDataForm from '../components/GraphDataForm.vue'
 
 export default {
-	components: { LineChart, Layer, GraphDataForm },
+	components: { LineChart, Layer, GraphDataForm, MessageBubble },
 	setup() {
 		const { error, retrievePosts, userPosts, deletePost } = useDAO()
 		const series = ref([])

@@ -59,7 +59,8 @@ const actions = {
 				router.push({ path: '/' })
 			})
 			.catch(error => {
-				commit("setError", error.message)
+				console.log(error.message)
+				commit("setError", "Your username or password is incorrect!")
 			});
 	},
 

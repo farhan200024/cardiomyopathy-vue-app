@@ -3,14 +3,11 @@
 		<form v-if="!forgottenPassword" @submit.prevent="signInAction">
 			<div class="form">
 				<h1>Login</h1>
-				<div v-if="emailVerificationSent" class="bubble" >
-					<p>{{ emailVerificationSent }}</p><p @click="emailVerificationSent = null" >X</p>
-				</div>
 				<input type="email" required placeholder="Email" v-model="email">
 				<input type="password" required placeholder="Password" v-model="password">
 				<p class="reset-password" @click="forgottenPassword = !forgottenPassword" >Forgotten Password?</p>
 			</div>
-			<div v-if="error" class="error">{{ error }}</div>
+			<MessageBubble v-if="error" :message="error" @close="toggleErrorState" />
 			<button class="primary" >Log In</button>
 			<p class="ext-link">No account yet? <span  @click="showSignup">Register</span> instead</p>
 		</form>
@@ -29,13 +26,14 @@
 </template>
 
 <script>
-import { ref } from 'vue'
-import useLogin from '../composables/useLogin'
+import { computed, ref } from 'vue'
 import useResetPassword from '../composables/useResetPassword'
+import MessageBubble from '../components/MessageBubble.vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
 export default {
+	components: { MessageBubble },
 	setup() {
 		const router = useRouter()
 		const store = useStore()
@@ -45,17 +43,7 @@ export default {
 		const password = ref('')
 		const forgottenPassword = ref(false)
 		const emailVerificationSent = ref(null)
-
-		const { error, /*login*/ } = useLogin()
 		const { resetPasswordError, resetPassword } = useResetPassword()
-
-		// const handleLogin = async  () => {
-		// 	await login(email.value, password.value)
-		// 	if(!error.value) {
-		// 		console.log('user logged in')
-		// 		context.emit("login")
-		// 	}
-		// }
 
 		const handleResetPassword = async () => {
 			await resetPassword(email.value)
@@ -68,6 +56,14 @@ export default {
 
 		}
 
+		const toggleErrorState = () => {
+			store.commit("setError", null)
+		}
+
+		const error = computed(() => {
+			return store.getters.getError
+		})
+
 		const signInAction = () => {
 			store.dispatch('signInAction', { email: email.value, password: password.value })
 		}
@@ -79,13 +75,14 @@ export default {
 		return { 	email, 
 							password,
 							signInAction ,
-							// handleLogin, 
-							error,
 							resetPasswordError,
 							showSignup, 
 							forgottenPassword, 
 							handleResetPassword,
-							emailVerificationSent }
+							emailVerificationSent,
+							toggleErrorState,
+							error
+						}
 	}
 }
 </script>
@@ -108,21 +105,5 @@ export default {
 	.reset-password:hover {
 		cursor: pointer;
 		color: red;
-	}
-
-	.bubble {
-		background: rgba(220, 0, 0, 0.1);
-		display: flex;
-		align-items: center;
-	}
-
-	.bubble p:nth-child(2) {
-		margin: 20px;
-		cursor: pointer;
-		font-size: 25px;
-	}
-
-	.bubble p:nth-child(2):hover {
-		font-weight: bold;
 	}
 </style>

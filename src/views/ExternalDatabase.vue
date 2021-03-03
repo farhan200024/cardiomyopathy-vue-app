@@ -40,7 +40,6 @@
 
 <script>
 import { ref } from 'vue';
-// import axios from 'axios';
 import CardiomyopathyType from '../components/CardiomyopathyType'
 import GeneType from '../components/GeneType'
 
