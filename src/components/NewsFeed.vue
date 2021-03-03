@@ -1,7 +1,7 @@
 <template>
 	<div class="news-feed-container">
-		<h1>{{ description }}</h1>
-		<div class="news-feed-content">
+		<h2 id="news-feed-title" >Latest Cardiomyopathy News and Research</h2>
+		<div v-if="newsItems.length !== 0"  class="news-feed-content">
 			<div v-for="item in newsItems" :key="item.created" class="news-item">
 				<img class="news-image-element" :src="item.media.content[0].url[0]">
 				<div class="news-article-content">
@@ -11,16 +11,21 @@
 				</div>
 			</div>
 		</div>
+		<div v-else>
+			<div>
+				<HeartPulse />
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
 import axios from 'axios'
 import { ref } from '@vue/reactivity'
+import HeartPulse from '../components/HeartPulse'
 export default {
-	
+	components: { HeartPulse },
 	setup() {
-		const description = ref('')
 		const newsItems = ref('')
 
 		const redirectTo = (link) => {
@@ -32,7 +37,6 @@ export default {
 			try {
 				let response = await axios.get('https://send-rss-get-json.herokuapp.com/convert/?u=https://www.news-medical.net/tag/feed/Cardiomyopathy.aspx')
 				console.log(response.data.items)
-				description.value = response.data.description
 				newsItems.value = response.data.items
 				for(let i in newsItems.value) {
 					newsItems.value[i].created = new Date(newsItems.value[i].created).toUTCString()
@@ -45,7 +49,6 @@ export default {
 		retrieveNews()
 
 		return {
-			description,
 			newsItems,
 			redirectTo
 		}
@@ -56,6 +59,14 @@ export default {
 <style>
 	.news-feed-container {
 		text-align: left;
+	}
+
+	.news-feed-container h2 {
+		border-bottom: 1px solid #dfdfdf;
+	}
+
+	#news-feed-title {
+		font-size: 32px;
 	}
 
 	.news-item {

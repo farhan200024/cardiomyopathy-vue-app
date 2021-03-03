@@ -1,5 +1,5 @@
 <template>
-	<form v-if="!registered" @submit.prevent="signUpAction">
+	<form @submit.prevent="signUpAction">
 		<div class="form">
 			<h1>Register</h1>
 			<div class="form-name-fields">
@@ -20,11 +20,6 @@
 		<button class="success">Register</button>
 		<p class="ext-link" >Already registered? <span  @click="showLogin">Login</span> instead</p>
 	</form>
-	<div v-else class="email-verification-card">
-		<p>A verification Email has be sent at:</p>
-		<h1>{{ email }}</h1>
-		<p>Please verify your email.</p>
-	</div>
 </template>
 
 <script>
@@ -52,7 +47,6 @@ export default {
 		const email = ref('')
 		const password = ref('')
 		const confirmPassword = ref('')
-		const registered = ref(false)
 		
 		if(route.params.email) {
 			email.value = route.params.email
@@ -94,7 +88,6 @@ export default {
 							confirmPassword,
 							error,
 							showLogin,
-							registered,
 							signUpAction
 						}
 	}
@@ -105,24 +98,6 @@ export default {
 
 	.ext-link {
 		margin: 25px;
-	}
-
-	.email-verification-card {
-		height: 500px;
-		align-items: center;
-		text-align: center;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.email-verification-card p {
-		font-size: 20px;
-	}
-
-	.email-verification-card h1 {
-		font-size: 48px;
 	}
 
 	.form-name-fields, .form-password-fields {

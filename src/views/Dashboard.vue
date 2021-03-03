@@ -132,6 +132,10 @@ export default {
 		align-content: center;
 	}
 
+	.content-wrapper {
+		min-height: 50vh;
+	}
+
 	.content-wrapper button {
 		max-width: 150px;
 		margin: 0 auto;

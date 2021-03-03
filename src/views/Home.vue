@@ -1,6 +1,9 @@
 <template>
+	<div class="welcome-message">
+		<h2>Welcome to the</h2>
+		<h1>Cardiomyopathy App</h1>
+	</div>
 	<div v-if="!isUserAuth" class="home-container">
-	<h1>Cardiomyopathy App</h1>
 		<div class="welcome-wrapper">
 			<h2>This website has a range of data on cardiomyopathy and <br> mutations.</h2>
 			<h3>
@@ -11,6 +14,13 @@
 				<input type="email" required placeholder="Email" v-model="email">
 				<button class="success" >Sign Up - It's free</button>
 			</form>
+		</div>
+	</div>
+	<div v-else >
+		<div id="user-welcome-container">
+			<p>You are currently logged in as</p>
+			<h2>{{ getUser.displayName }}</h2>
+			<p id="wrong-user-message" class="ext-link" >Not you? <span @click="logoutAndRedirectToLogin">Login</span></p>
 		</div>
 	</div>
 	<NewsFeed />
@@ -34,6 +44,10 @@ export default {
 		const getUser = computed(() => {
 			return store.getters.getUser
 		})
+
+		const logoutAndRedirectToLogin = () => {
+			store.dispatch('signOutAction')
+		}
 
 		const isUserAuth = computed(() => {
 			return store.getters.isUserAuth
@@ -59,19 +73,44 @@ export default {
 			getUser,
 			isUserAuth,
 			email,
-			redirectToRegister
+			redirectToRegister,
+			logoutAndRedirectToLogin
 		}
 	}
 }
 </script>
 
 <style>
+
+	.welcome-message {
+		padding: 40px;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.welcome-message h1 {
+		color: green;
+		border-bottom: none;
+	}
+
 	.home-container {
 		text-align: left;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-around;
-		min-height: 70vh;
+		padding: 40px;
+	}
+
+	#user-welcome-container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: 40px;
+		height: 200px;
+	}
+
+	#user-welcome-container h2 {
+		font-size: 32px;
 	}
 
 	.home-container h1 {
@@ -118,5 +157,10 @@ export default {
 		padding: 0;
 		width: 300px;
 		margin-left: 10px;
+	}
+
+	#wrong-user-message {
+		margin: 0;
+		padding: 0;
 	}
 </style>
