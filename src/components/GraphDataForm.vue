@@ -9,7 +9,7 @@
 		<input type="text" placeholder="Y Axis Title" v-model="post.yTitle" required>
 		<input type="text" placeholder="X Axis Title" v-model="post.xTitle" required>
 		<button @click="saveData" class="success" >{{ action.charAt(0).toUpperCase() + action.substr(1, action.length) }}</button>
-		<p v-if="error" class="error">{{ error }}</p>
+		<MessageBubble v-if="error" :message="error" @close="error = null" />
 	</div>
 </template>
 
@@ -18,9 +18,11 @@ import { computed, ref } from 'vue'
 import { timestamp } from '../firebase/config'
 import useParseCsvToJson from '../composables/useParseCsvToJson'
 import useDAO from '../composables/useDAO'
+import MessageBubble from '../components/MessageBubble.vue'
 import { useStore } from 'vuex'
 
 export default {
+	components: { MessageBubble },
 	props: [ 'action', 'graphPost' ],
 	setup(props, context) {
 		const { parseFile, data } = useParseCsvToJson()

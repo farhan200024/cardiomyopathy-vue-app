@@ -20,7 +20,7 @@ const actions = {
 			commit("setUser", response.user)
 
 			// send an email verification to the users email
-			await response.user.sendEmailVerification();
+			await response.user.sendEmailVerification()
 			
 			await response.user.updateProfile({
 				displayName: payload.user.displayName
@@ -40,7 +40,7 @@ const actions = {
 							.set(payload.user)
 
 			error.value = null
-			router.push({ path: '/' })
+			router.push({ name: 'VerifyEmail' })
 		return response
 
 		} catch(err) {
@@ -59,7 +59,8 @@ const actions = {
 				router.push({ path: '/' })
 			})
 			.catch(error => {
-				commit("setError", error.message)
+				console.log(error.message)
+				commit("setError", "Your username or password is incorrect!")
 			});
 	},
 

@@ -2,42 +2,44 @@
   <h1>Search for Data</h1>
 	<div class="data-container">
 		<form class="options">
-		<label>Select Option: </label>
-    <select v-model="queryOption" required>
-      <option value="" selected>Choose</option>
-      <option value="term">Cardiomyopathy Type</option>
-      <option value="gene">Gene</option>
-    </select>
-			<div v-if="queryOption === 'term'">
-				<label>Select Term: </label>
-				<select v-model="queryKeyword" required>
-					<option value="" selected>Choose</option>
-					<option value="Cardiomyopathy, Familial Hypertrophic">Hypertrophic Cardiomyopathy</option>
-					<option value="Cardiomyopathy, Dilated, 1a">Dilated Cardiomyopathy</option>
-				</select>
-      </div>
-      <div v-if="queryOption === 'gene'">
-				<label>Select Gene: </label>
-				<select v-model="queryKeyword" required>
-					<option value="" selected>Choose</option>
-					<option value="TNNT2">TNNT2</option>
-					<option value="MYBPC3">MYBPC3</option>
-					<option value="MYH7">MYH7</option>
-					<option value="TPM1">TPM1</option>
-				</select>
-      </div>
-    <button class="primary" @click.prevent="searchData">Search</button>
+      <label>Select Option: </label>
+      <select v-model="queryOption" required>
+        <option value="" selected>Choose</option>
+        <option value="term">Cardiomyopathy Type</option>
+        <option value="gene">Gene</option>
+      </select>
+        <div v-if="queryOption === 'term'">
+          <label>Select Term: </label>
+          <select v-model="queryKeyword" required>
+            <option value="" selected>Choose</option>
+            <option value="Cardiomyopathy, Familial Hypertrophic">Hypertrophic Cardiomyopathy</option>
+            <option value="Cardiomyopathy, Dilated, 1a">Dilated Cardiomyopathy</option>
+          </select>
+        </div>
+        <div v-if="queryOption === 'gene'">
+          <label>Select Gene: </label>
+          <select v-model="queryKeyword" required>
+            <option value="" selected>Choose</option>
+            <option value="TNNT2">TNNT2</option>
+            <option value="MYBPC3">MYBPC3</option>
+            <option value="MYH7">MYH7</option>
+            <option value="TPM1">TPM1</option>
+          </select>
+        </div>
+      <button class="primary" @click.prevent="searchData">Search</button>
 		</form>
+    <div class="information-wrapper">
+      <div v-if="option">
+        <CardiomyopathyType v-if="option === 'term'" :keyword="keyword" />
+        <GeneType v-if="option === 'gene'" :keyword="keyword"/>
+      </div>
+      <h3 v-else >Search to retrieve the data!</h3>
+    </div>
 	</div>
-  <div>
-    <CardiomyopathyType v-if="option === 'term'" :keyword="keyword" />
-    <GeneType v-if="option === 'gene'" :keyword="keyword"/>
-  </div>
 </template>
 
 <script>
 import { ref } from 'vue';
-// import axios from 'axios';
 import CardiomyopathyType from '../components/CardiomyopathyType'
 import GeneType from '../components/GeneType'
 
@@ -68,10 +70,10 @@ export default {
 <style>
 
   .data-container {
-    min-height: 40vh;
+    min-height: 60vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-around;
   }
 
 	.geneInfo {

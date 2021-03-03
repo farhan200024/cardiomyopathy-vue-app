@@ -74,6 +74,7 @@ export default {
 </script>
 
 <style>
+
 	.posts h3 {
 		padding: 10px;
 	}
