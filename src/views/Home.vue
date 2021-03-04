@@ -20,7 +20,7 @@
 		<div id="user-welcome-container">
 			<p>You are currently logged in as</p>
 			<h2>{{ getUser.displayName }}</h2>
-			<p id="wrong-user-message" class="ext-link" >Not you? <span @click="logoutAndRedirectToLogin">Login</span></p>
+			<p id="wrong-user-message" class="ext-link" >Not you? <span @click="logoutAndRedirectToLogin">Log out</span></p>
 		</div>
 	</div>
 	<NewsFeed />

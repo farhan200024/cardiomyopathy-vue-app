@@ -23,6 +23,7 @@
 			<router-link :to="{ name: 'Search' }">Search Data</router-link>
 			<router-link v-if="isUserAuth" :to="{ name: 'Dashboard' }">Dashboard</router-link>
 			<router-link v-if="isUserAuth" :to="{ name: 'CardiomyopathyData' }">Data</router-link>
+			<router-link :to="{ name: 'Help' }">Help</router-link>
 		</nav>
 	</header>
 </template>
