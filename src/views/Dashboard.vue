@@ -12,7 +12,12 @@
 				<div class="action-buttons">
 					<input type="checkbox" @change="addSeriesToArray($event, post)" class="checkbox" >
 					<span @click="updateItem(post)" class="material-icons edit-button">edit</span>
-					<span @click="deleteItem(post.id)" class="material-icons delete-button">delete</span>
+					<span @click="deleteAction(post.id)" class="material-icons delete-button">delete</span>
+					<Modal v-if="actionToPerform" :actionToPerform="actionToPerform" @performSelectedAction="performSelectedAction($event)" >
+						<template v-slot:action-button>
+							<span>Delete</span>
+						</template>
+					</Modal>
 				</div>
 			</div>
 			<button @click="displayChart" class="primary" id="display-chart-button" >Display Chart</button>
@@ -40,10 +45,11 @@ import useDAO from '../composables/useDAO'
 import { useStore } from 'vuex'
 import Layer from '../components/Layer.vue'
 import MessageBubble from '../components/MessageBubble.vue'
+import Modal from '../components/Modal.vue'
 import GraphDataForm from '../components/GraphDataForm.vue'
 
 export default {
-	components: { LineChart, Layer, GraphDataForm, MessageBubble },
+	components: { LineChart, Layer, GraphDataForm, MessageBubble, Modal },
 	setup() {
 		const { error, retrievePosts, userPosts, deletePost } = useDAO()
 		const series = ref([])
@@ -52,6 +58,8 @@ export default {
 		const updatePost = ref(null)
 		const action = ref('')
 		const message = ref('')
+		const actionToPerform = ref('')
+		const deletePostID = ref('')
 
 		const onSuccess = (resp) => {
 			action.value = ''
@@ -68,11 +76,23 @@ export default {
 			action.value = 'update'
 		}
 
-		const deleteItem = async (postID) => {
-			let success = null
-			success = await deletePost(getUser.value.uid, postID)
+		const deleteAction = (postID) => {
+			deletePostID.value = postID
+			actionToPerform.value = 'Delete'
+		}
 
-			console.log(success)
+		const performSelectedAction = async (e) => {
+			if(e.value === "delete") {
+				console.log(deletePostID.value)
+				console.log(e.value)
+				let success = null
+
+				success = await deletePost(getUser.value.uid, deletePostID.value)
+
+				console.log(success)
+			}
+			actionToPerform.value = ''
+			deletePostID.value = ''
 		}
 		
 		const addSeriesToArray = (e, post) => {
@@ -106,13 +126,15 @@ export default {
 			addSeriesToArray,
 			series,
 			displayChart,
-			deleteItem,
+			performSelectedAction,
 			action,
 			updateItem,
 			updatePost,
 			addItem,
 			onSuccess,
-			message
+			message,
+			actionToPerform,
+			deleteAction
 		}
 	}
 }
