@@ -4,6 +4,16 @@
 		<h1>{{ action.charAt(0).toUpperCase() + action.substr(1, action.length) }}</h1>
 		<input type="text" placeholder="Title" v-model="post.title"  required>
 		<input type="file" @change="parseFile" accept=".csv" required>
+		<Tooltip>
+			<template v-slot:icon>
+				<span class="material-icons">help</span>
+			</template>
+			<template v-slot:content>
+				<h2>Help</h2>
+				<p>Supported files: .csv</p>
+				<p>The data you submit must have two columns with no header names and should have x and y values</p>
+			</template>
+		</Tooltip>
 		<input type="text" placeholder="Cardiomyopathy Type" v-model="post.cardiomyopathyType" required>
 		<input type="text" placeholder="Mutation Type" v-model="post.mutationName" required>
 		<input type="text" placeholder="Y Axis Title" v-model="post.yTitle" required>
@@ -19,10 +29,11 @@ import { timestamp } from '../firebase/config'
 import useParseCsvToJson from '../composables/useParseCsvToJson'
 import useDAO from '../composables/useDAO'
 import MessageBubble from '../components/MessageBubble.vue'
+import Tooltip from '../components/Tooltip.vue'
 import { useStore } from 'vuex'
 
 export default {
-	components: { MessageBubble },
+	components: { MessageBubble, Tooltip },
 	props: [ 'action', 'graphPost' ],
 	setup(props, context) {
 		const { parseFile, data } = useParseCsvToJson()
@@ -106,5 +117,35 @@ export default {
 </script>
 
 <style>
+	.data-form {
+		width: 500px;
+		margin: 10px auto;
+	}
 
+	.data-form h1 {
+		font-size: 48px;
+	}
+
+	.data-form label {
+		display: block;
+		padding-left: 10px;
+		text-align: left;
+		font-weight: bold;
+		font-size: 18px;
+	}
+
+	.data-form input {
+		width: 100%;
+		padding: 10px;
+		border-radius: 20px;
+		font-size: 18px;
+		border: 1px solid rgb(173, 173, 173);
+		outline: none;
+		color: #999;
+		margin: 20px auto 0 auto;
+	}
+
+	.data-form input:focus {
+		border: 1px solid black;
+	}
 </style>

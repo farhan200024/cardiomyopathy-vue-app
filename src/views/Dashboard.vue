@@ -179,37 +179,4 @@ export default {
 		width: 600px;
 	}
 
-	.data-form {
-		width: 500px;
-		margin: 10px auto;
-	}
-
-	.data-form h1 {
-		font-size: 48px;
-	}
-
-	.data-form label {
-		display: block;
-		padding-left: 10px;
-		text-align: left;
-		font-weight: bold;
-		font-size: 18px;
-	}
-
-	.data-form input {
-		width: 100%;
-		padding: 10px;
-		border-radius: 20px;
-		font-size: 18px;
-		border: 1px solid rgb(173, 173, 173);
-		outline: none;
-		color: #999;
-		margin: 20px auto;
-		margin-top: 0;
-	}
-
-	.data-form input:focus {
-		border: 1px solid black;
-	}
-
 </style>
