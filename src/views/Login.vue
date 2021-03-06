@@ -1,8 +1,9 @@
 <template>
 	<div class="login-container">
+		<div class="login-wrapper">
 		<form v-if="!forgottenPassword" @submit.prevent="signInAction">
-			<div class="form">
 				<h1>Login</h1>
+			<div class="form">
 				<input type="email" required placeholder="Email" v-model="email">
 				<input type="password" required placeholder="Password" v-model="password">
 				<p class="reset-password" @click="forgottenPassword = !forgottenPassword" >Forgotten Password?</p>
@@ -11,7 +12,6 @@
 			<button class="primary" >Log In</button>
 			<p class="ext-link">No account yet? <span  @click="showSignup">Register</span> instead</p>
 		</form>
-
 		<form v-else @submit.prevent="handleResetPassword">
 			<div class="form">
 				<h1>Reset Password</h1>
@@ -22,6 +22,8 @@
 			<button class="danger" >Reset Password</button>
 			<button class="warning" @click.prevent="forgottenPassword = !forgottenPassword"  >Cancel</button>
 		</form>
+		</div>
+
 	</div>
 </template>
 
@@ -94,6 +96,13 @@ export default {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+		width: 100%;
+	}
+
+	.login-wrapper {
+		box-sizing: border-box;
+		width: 100%;
+		padding: 20px;
 	}
 
 	.reset-password {

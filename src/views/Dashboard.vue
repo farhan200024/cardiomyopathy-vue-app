@@ -33,7 +33,7 @@
 	</Layer>
 	<Layer v-if="showChart && series.length !== 0" @close="showChart = !showChart" >
 		<template v-slot:content>
-			<LineChart :series="series"/>
+			<LineChart :series="series" />
 		</template>
 	</Layer>
 </template>
@@ -142,6 +142,10 @@ export default {
 
 <style>
 
+	.dashboard-container {
+		width: 100vw;
+	}
+
 	.dashboard-container + h1 {
 		margin: 30px;
 	}
@@ -157,6 +161,7 @@ export default {
 
 	.content-wrapper {
 		min-height: 50vh;
+		width: 100vw;
 	}
 
 	.content-wrapper button {
@@ -176,7 +181,19 @@ export default {
 		display: flex;
 		justify-content: space-between;
 		margin: 20px auto;
-		width: 600px;
+		width: 80vw;
+	}
+
+	@media screen and (max-width: 600px) {
+
+		.dashboard-container {
+			padding: 0;
+		}
+
+		.posts-container {
+			width: 90vw;
+			margin: 0 auto;
+		}
 	}
 
 </style>

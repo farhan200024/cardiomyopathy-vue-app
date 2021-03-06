@@ -4,7 +4,7 @@
       <nav class = "navbar-footer">
 				<router-link :to = "{ name: 'Help' }">Help</router-link>
       </nav>
-			<router-link class = "polyline-footer" :to = "{ name: 'Home' }">
+			<router-link class="polyline-footer" :to = "{ name: 'Home' }">
 				<svg version = "1.0" xmlns = "http://www.w3.org/2000/svg" xmlns:xlink = "http://www.w3.org/1999/xlink" x = "0px" y = "0px" width = "100px" height = "38px" viewBox = "0 0 150 73" enable-background = "new 0 0 150 73" xml:space = "preserve">
 					<polyline fill = "none" stroke = "green" stroke-width = "3" stroke-miterlimit = "10" points = "0,45.486 38.514,45.486 44.595,33.324 50.676,45.486 57.771,45.486 62.838,55.622 71.959,9 80.067,63.729 84.122,45.486 97.297,45.486 103.379,40.419 110.473,45.486 150,45.486" />
 				</svg>
@@ -61,7 +61,7 @@ export default {
 	.polyline-footer {
 		margin: 10px;
 		cursor: pointer;
-        position: relative;
+    position: relative;
 	}
 
 	.polyline-footer svg {
@@ -70,12 +70,24 @@ export default {
         
 	}
 
-    .contact h4{
-      color: #8c8c8c;
-    }
+  .contact h4{
+    color: #8c8c8c;
+  }
 
-    .contact h3{
-      color: #8c8c8c;
-    }
+  .contact h3{
+    color: #8c8c8c;
+  }
+
+	@media screen and (max-width: 600px) {
+		footer {
+			width: 100vw;
+			display: flex;
+			justify-content: space-evenly;
+		}
+
+		.polyline-footer {
+			display: none;
+		}
+	}
 
 </style>

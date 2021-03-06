@@ -73,6 +73,7 @@ export default {
 		padding: 20px;
 		margin: 10px 0;
 		display: flex;
+		border-bottom: 1px solid #b9b9b9;
 	}
 
 	.news-article-content {
@@ -93,4 +94,24 @@ export default {
 		width: 323px;
 		height: 250px;
 	}
+
+	@media screen and (max-width: 750px) {
+		#news-feed-title {
+			font-size: 26px;
+			margin: 0 10px;
+		}
+
+		.news-image-element {
+			width: 80%;
+			margin: 0 auto;
+		}
+
+		.news-item {
+			display: flex;
+			flex-direction: column;
+			padding: 0;
+			margin: 10px auto;
+		}
+	}
+
 </style>
