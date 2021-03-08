@@ -1,7 +1,5 @@
 <template>
-	<div v-if="error">
-		<p class="error">{{error}}</p>
-	</div>
+	<MessageBubble v-if="error" :message="error" @close="error = ''" />
   <div v-else class="geneInfo">
 		<div v-if="description">
 			<div>
@@ -45,11 +43,12 @@
 <script>
 import { computed, ref, watch } from 'vue'
 import axios from 'axios'
+import MessageBubble from '../components/MessageBubble.vue'
 import HeartPulse from '../components/HeartPulse'
 import Accordion from '../components/Accordion'
 
 export default {
-	components: { HeartPulse, Accordion },
+	components: { HeartPulse, Accordion, MessageBubble },
 	props: ['keyword'],
 	setup(props) {
 		const hpoBaseURL = 'https://hpo.jax.org/api/hpo/';
@@ -132,4 +131,5 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+</style>

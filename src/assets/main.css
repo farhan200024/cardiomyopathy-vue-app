@@ -16,8 +16,11 @@ h1 {
 
 /* form styles */
 .form {
-	width: 600px;
+	width: 70vw;
 	margin: 0 auto;
+	display: flex;
+	color: black;
+	flex-direction: column;
 }
 
 .form h1 {
@@ -38,19 +41,20 @@ h1 {
 	border: 1px solid rgb(173, 173, 173);
 	outline: none;
 	margin: 20px auto;
+	box-sizing: border-box;
 }
 
 .form input:focus {
 	border: 1px solid black;
 }
 
-.form span {
+.ext-link span {
 	font-weight: bold;
 	text-decoration: underline;
 	cursor: pointer;
 }
 
-.form span:hover {
+.ext-link span:hover {
 	color: red;
 }
 
@@ -142,4 +146,27 @@ input[type='file'] {
 	font-size: 22px;
 	font-weight: bold;
 	padding: 25px;
+}
+
+@media screen and (max-width: 600px) {
+	h1 {
+		font-size: 10vw;
+		margin: 0 auto;
+	}
+
+	h2 {
+		font-size: 5vw;
+	}
+
+	.form {
+		display: flex;
+		width: 100%;
+	}
+
+	.form input {
+		width: 100%;
+		padding: 10px;
+		margin: 10px 0;
+		font-size: 4.2vw;
+	}
 }

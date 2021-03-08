@@ -1,37 +1,41 @@
 <template>
 	<div class="login-container">
-		<form v-if="!forgottenPassword" @submit.prevent="signInAction" class="form">
-			<h1>Login</h1>
-			<div v-if="emailVerificationSent" class="bubble" >
-				<p>{{ emailVerificationSent }}</p><p @click="emailVerificationSent = null" >X</p>
+		<div class="login-wrapper">
+		<form v-if="!forgottenPassword" @submit.prevent="signInAction">
+				<h1>Login</h1>
+			<div class="form">
+				<input type="email" required placeholder="Email" v-model="email">
+				<input type="password" required placeholder="Password" v-model="password">
+				<p class="reset-password" @click="forgottenPassword = !forgottenPassword" >Forgotten Password?</p>
 			</div>
-			<input type="email" required placeholder="Email" v-model="email">
-			<input type="password" required placeholder="Password" v-model="password">
-			<p class="reset-password" @click="forgottenPassword = !forgottenPassword" >Forgotten Password?</p>
-			<div v-if="error" class="error">{{ error }}</div>
+			<MessageBubble v-if="error" :message="error" @close="toggleErrorState" />
 			<button class="primary" >Log In</button>
-			<p>No account yet? <span  @click="showSignup">Register</span> instead</p>
+			<p class="ext-link">No account yet? <span  @click="showSignup">Register</span> instead</p>
 		</form>
-
-		<form v-else @submit.prevent="handleResetPassword" class="form">
-			<h1>Reset Password</h1>
-			<p>Please enter your email address to reset your password.</p>
-			<input type="email" required placeholder="Email" v-model="email">
+		<form v-else @submit.prevent="handleResetPassword">
+			<div class="form">
+				<h1>Reset Password</h1>
+				<p>Please enter your email address to reset your password.</p>
+				<input type="email" required placeholder="Email" v-model="email">
+			</div>
 			<div class="error" v-if="resetPasswordError">{{ resetPasswordError }}</div>
 			<button class="danger" >Reset Password</button>
 			<button class="warning" @click.prevent="forgottenPassword = !forgottenPassword"  >Cancel</button>
 		</form>
+		</div>
+
 	</div>
 </template>
 
 <script>
-import { ref } from 'vue'
-import useLogin from '../composables/useLogin'
+import { computed, ref } from 'vue'
 import useResetPassword from '../composables/useResetPassword'
+import MessageBubble from '../components/MessageBubble.vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
 export default {
+	components: { MessageBubble },
 	setup() {
 		const router = useRouter()
 		const store = useStore()
@@ -41,17 +45,7 @@ export default {
 		const password = ref('')
 		const forgottenPassword = ref(false)
 		const emailVerificationSent = ref(null)
-
-		const { error, /*login*/ } = useLogin()
 		const { resetPasswordError, resetPassword } = useResetPassword()
-
-		// const handleLogin = async  () => {
-		// 	await login(email.value, password.value)
-		// 	if(!error.value) {
-		// 		console.log('user logged in')
-		// 		context.emit("login")
-		// 	}
-		// }
 
 		const handleResetPassword = async () => {
 			await resetPassword(email.value)
@@ -64,6 +58,14 @@ export default {
 
 		}
 
+		const toggleErrorState = () => {
+			store.commit("setError", null)
+		}
+
+		const error = computed(() => {
+			return store.getters.getError
+		})
+
 		const signInAction = () => {
 			store.dispatch('signInAction', { email: email.value, password: password.value })
 		}
@@ -75,13 +77,14 @@ export default {
 		return { 	email, 
 							password,
 							signInAction ,
-							// handleLogin, 
-							error,
 							resetPasswordError,
 							showSignup, 
 							forgottenPassword, 
 							handleResetPassword,
-							emailVerificationSent }
+							emailVerificationSent,
+							toggleErrorState,
+							error
+						}
 	}
 }
 </script>
@@ -93,28 +96,23 @@ export default {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+		width: 100%;
+	}
+
+	.login-wrapper {
+		box-sizing: border-box;
+		width: 100%;
+		padding: 20px;
 	}
 
 	.reset-password {
 		margin-bottom: 20px;
 		font-weight: bold;
 		text-decoration: underline;
+	}
+
+	.reset-password:hover {
 		cursor: pointer;
-	}
-
-	.bubble {
-		background: rgba(220, 0, 0, 0.1);
-		display: flex;
-		align-items: center;
-	}
-
-	.bubble p:nth-child(2) {
-		margin: 20px;
-		cursor: pointer;
-		font-size: 25px;
-	}
-
-	.bubble p:nth-child(2):hover {
-		font-weight: bold;
+		color: red;
 	}
 </style>

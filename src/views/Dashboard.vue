@@ -3,8 +3,8 @@
 		<h1>Dashboard</h1>
 		<button @click="addItem" class="success" id="add-button" >Add Data</button>
 		<div v-if="userPosts.length !== 0" class="content-wrapper">
-			<p v-if="message" class="message">{{ message }}</p>
-			<p v-if="error">{{ error }}</p>
+			<MessageBubble v-if="message" :message="message" @close="message = ''" />
+			<MessageBubble v-if="error" :message="error" @close="error = null" />
 			<div v-for="post in userPosts" :key="post.id" class="posts-container" >
 				<div class="posts">
 					<h3>{{ post.title }}</h3>
@@ -12,7 +12,12 @@
 				<div class="action-buttons">
 					<input type="checkbox" @change="addSeriesToArray($event, post)" class="checkbox" >
 					<span @click="updateItem(post)" class="material-icons edit-button">edit</span>
-					<span @click="deleteItem(post.id)" class="material-icons delete-button">delete</span>
+					<span @click="deleteAction(post.id)" class="material-icons delete-button">delete</span>
+					<Modal v-if="actionToPerform" :actionToPerform="actionToPerform" @performSelectedAction="performSelectedAction($event)" >
+						<template v-slot:action-button>
+							<span>Delete</span>
+						</template>
+					</Modal>
 				</div>
 			</div>
 			<button @click="displayChart" class="primary" id="display-chart-button" >Display Chart</button>
@@ -28,7 +33,7 @@
 	</Layer>
 	<Layer v-if="showChart && series.length !== 0" @close="showChart = !showChart" >
 		<template v-slot:content>
-			<LineChart :series="series"/>
+			<LineChart :series="series" />
 		</template>
 	</Layer>
 </template>
@@ -39,10 +44,12 @@ import LineChart from '../components/LineChart'
 import useDAO from '../composables/useDAO'
 import { useStore } from 'vuex'
 import Layer from '../components/Layer.vue'
+import MessageBubble from '../components/MessageBubble.vue'
+import Modal from '../components/Modal.vue'
 import GraphDataForm from '../components/GraphDataForm.vue'
 
 export default {
-	components: { LineChart, Layer, GraphDataForm },
+	components: { LineChart, Layer, GraphDataForm, MessageBubble, Modal },
 	setup() {
 		const { error, retrievePosts, userPosts, deletePost } = useDAO()
 		const series = ref([])
@@ -51,6 +58,8 @@ export default {
 		const updatePost = ref(null)
 		const action = ref('')
 		const message = ref('')
+		const actionToPerform = ref('')
+		const deletePostID = ref('')
 
 		const onSuccess = (resp) => {
 			action.value = ''
@@ -67,11 +76,23 @@ export default {
 			action.value = 'update'
 		}
 
-		const deleteItem = async (postID) => {
-			let success = null
-			success = await deletePost(getUser.value.uid, postID)
+		const deleteAction = (postID) => {
+			deletePostID.value = postID
+			actionToPerform.value = 'Delete'
+		}
 
-			console.log(success)
+		const performSelectedAction = async (e) => {
+			if(e.value === "delete") {
+				console.log(deletePostID.value)
+				console.log(e.value)
+				let success = null
+
+				success = await deletePost(getUser.value.uid, deletePostID.value)
+
+				console.log(success)
+			}
+			actionToPerform.value = ''
+			deletePostID.value = ''
 		}
 		
 		const addSeriesToArray = (e, post) => {
@@ -105,19 +126,25 @@ export default {
 			addSeriesToArray,
 			series,
 			displayChart,
-			deleteItem,
+			performSelectedAction,
 			action,
 			updateItem,
 			updatePost,
 			addItem,
 			onSuccess,
-			message
+			message,
+			actionToPerform,
+			deleteAction
 		}
 	}
 }
 </script>
 
 <style>
+
+	.dashboard-container {
+		width: 100vw;
+	}
 
 	.dashboard-container + h1 {
 		margin: 30px;
@@ -130,6 +157,11 @@ export default {
 		flex-direction: column;
 		justify-content: center;
 		align-content: center;
+	}
+
+	.content-wrapper {
+		min-height: 50vh;
+		width: 100%;
 	}
 
 	.content-wrapper button {
@@ -149,40 +181,19 @@ export default {
 		display: flex;
 		justify-content: space-between;
 		margin: 20px auto;
-		width: 600px;
+		width: 40%;
 	}
 
-	.data-form {
-		width: 500px;
-		margin: 10px auto;
-	}
+	@media screen and (max-width: 660px) {
 
-	.data-form h1 {
-		font-size: 48px;
-	}
+		.dashboard-container {
+			padding: 0;
+		}
 
-	.data-form label {
-		display: block;
-		padding-left: 10px;
-		text-align: left;
-		font-weight: bold;
-		font-size: 18px;
-	}
-
-	.data-form input {
-		width: 100%;
-		padding: 10px;
-		border-radius: 20px;
-		font-size: 18px;
-		border: 1px solid rgb(173, 173, 173);
-		outline: none;
-		color: #999;
-		margin: 20px auto;
-		margin-top: 0;
-	}
-
-	.data-form input:focus {
-		border: 1px solid black;
+		.posts-container {
+			width: 90%;
+			margin: 0 auto;
+		}
 	}
 
 </style>

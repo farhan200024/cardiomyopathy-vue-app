@@ -1,34 +1,37 @@
 <template>
-	<form v-if="!registered" @submit.prevent="signUpAction" class="form">
-    <h1>Register</h1>
-		<input type="text" required placeholder="First Name" v-model="firstName">
-		<input type="text" required placeholder="Last Name" v-model="lastName">
-		<input type="text" required placeholder="Display Name" v-model="displayName">
-		<input type="email" required placeholder="Email" v-model="email">
-		<input type="password" required placeholder="Password" v-model="password">
-		<input type="password" required placeholder="Confirm Password" v-model="confirmPassword">
-		<div class="error">{{ error }}</div>
+	<form @submit.prevent="signUpAction">
+		<div class="form">
+			<h1>Register</h1>
+			<div class="form-name-fields">
+				<input type="text" placeholder="First Name" v-model="firstName" required>
+				<input type="text" placeholder="Last Name" v-model="lastName" required>
+			</div>
+			<input type="text" placeholder="Display Name" v-model="displayName" required>
+			<input type="text" placeholder="Address" v-model="address" >
+			<input type="tel" placeholder="Phone Number" v-model="telNumber" >
+			<input type="text" placeholder="Institituional Affiliation" v-model="institution" required>
+			<input type="email" placeholder="Email" v-model="email" required>
+			<div class="form-password-fields">
+				<input type="password" placeholder="Password" v-model="password" required>
+				<input type="password" placeholder="Confirm Password" v-model="confirmPassword" required>
+			</div>
+		</div>
+		<MessageBubble v-if="error" :message="error" @close="toggleErrorState" />
 		<button class="success">Register</button>
-		<p>Already registered? <span  @click="showLogin">Login</span> instead</p>
+		<p class="ext-link" >Already registered? <span  @click="showLogin">Login</span> instead</p>
 	</form>
-	<div v-else class="email-verification-card">
-		<p>A verification Email has be sent at:</p>
-		<h1>{{ email }}</h1>
-		<p>Please verify your email.</p>
-	</div>
 </template>
 
 <script>
-import { ref } from 'vue'
-import useSignup from '../composables/useSignup'
+import { computed, ref } from 'vue'
+import MessageBubble from '../components/MessageBubble.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { timestamp } from '../firebase/config'
 
 export default {
-
+	components: { MessageBubble },
 	setup() {
-		const { error, /*signup*/ } = useSignup()
 		const router = useRouter()
 		const route = useRoute()
 		const store = useStore()
@@ -37,10 +40,12 @@ export default {
 		const firstName = ref('')
 		const lastName = ref('')
 		const displayName = ref('')
+		const address = ref('')
+		const telNumber = ref('')
+		const institution = ref('')
 		const email = ref('')
 		const password = ref('')
 		const confirmPassword = ref('')
-		const registered = ref(false)
 		
 		if(route.params.email) {
 			email.value = route.params.email
@@ -53,6 +58,9 @@ export default {
 					firstName: firstName.value,
 					lastName: lastName.value,
 					displayName: displayName.value,
+					address: address.value,
+					telNumber: telNumber.value,
+					institution: institution.value,
 					email: email.value,
 					password: password.value,
 					createdAt: timestamp()
@@ -63,6 +71,14 @@ export default {
 			}
 		}
 
+		const toggleErrorState = () => {
+			store.commit("setError", null)
+		}
+
+		const error = computed(() => {
+			return store.getters.getError
+		})
+
 		const showLogin = () => {
 			router.push({ name: 'Login' })
 		}
@@ -71,34 +87,33 @@ export default {
 							firstName,
 							lastName,
 							displayName,
+							address,
+							telNumber,
+							institution,
 							email,
 							password,
 							confirmPassword,
-							error,
 							showLogin,
-							registered,
-							signUpAction
+							signUpAction,
+							toggleErrorState,
+							error
 						}
 	}
 }
 </script>
 
 <style>
-	.email-verification-card {
-		height: 500px;
-		align-items: center;
-		text-align: center;
+
+	.ext-link {
+		margin: 25px;
+	}
+
+	.form-name-fields, .form-password-fields {
 		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
+		justify-content: space-between;
+		align-content: space-between;
+		width: 100%;
+		box-sizing: border-box;
 	}
 
-	.email-verification-card p {
-		font-size: 20px;
-	}
-
-	.email-verification-card h1 {
-		font-size: 48px;
-	}
 </style>

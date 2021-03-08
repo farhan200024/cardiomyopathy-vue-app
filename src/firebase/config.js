@@ -15,9 +15,12 @@ const firebaseConfig = {
 // initializing the firebase configuration
 firebase.initializeApp(firebaseConfig);
 
-// used to check the authentication service
+// uset to connect to authentication service
 const projectAuth = firebase.auth()
+
+// used to connect to the firestore service
 const projectFirestore = firebase.firestore()
+
 // retrieves the serve timestamp method
 const timestamp = firebase.firestore.FieldValue.serverTimestamp
 

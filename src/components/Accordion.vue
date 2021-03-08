@@ -78,4 +78,20 @@ export default {
 	.active:after {
 		content: "\2796"; /* Unicode character for "minus" sign (-) */
 	}
+
+	@media screen and (max-width: 600px) {
+		.accordion {
+			width: 100vw;
+		}
+
+		.accordion-container {
+			width: 100vw;
+			padding: 0;
+			margin: 0;
+		}
+		.panel {
+			width: 100vw;
+			margin: 25px 0;
+		}
+	}
 </style>
