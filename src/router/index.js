@@ -5,6 +5,7 @@ import Register from '../views/Register.vue'
 import VerifyEmail from '../views/VerifyEmail.vue'
 import Dashboard from '../views/Dashboard.vue'
 import CardiomyopathyData from '../views/CardiomyopathyData.vue'
+import NotFound from '../views/NotFound.vue'
 import ForgotPassword from '../components/ForgotPassword.vue'
 import ExternalDatabase from '../views/ExternalDatabase.vue'
 import { projectAuth } from '../firebase/config'
@@ -90,6 +91,11 @@ const routes = [
     name: "VerifyEmail",
     component: VerifyEmail,
     beforeEnter: verifyEmailGuard
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: "NotFound",
+    component: NotFound
   }
 ];
 

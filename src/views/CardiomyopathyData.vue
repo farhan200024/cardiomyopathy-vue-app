@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h1>Posts</h1>
+		<h1>Data</h1>
 		<div v-if="allPosts" class="posts-table">
 			<table>
 				<tr>

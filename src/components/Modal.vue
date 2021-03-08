@@ -108,7 +108,7 @@ export default {
 	}
 
 	.modal-buttons .cancelbtn {
-		background-color: #dfdfdf;
+		background-color: #696969;
 	}
 
 	@media screen and (max-width: 300px) {
