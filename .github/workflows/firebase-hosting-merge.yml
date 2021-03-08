@@ -11,13 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: npm install
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_CARDIOMYOPATHY_AUTH }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_CARDIOMYOPATHY_FARHAN }}'
           channelId: live
-          projectId: cardiomyopathy-auth
+          projectId: cardiomyopathy-farhan
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
