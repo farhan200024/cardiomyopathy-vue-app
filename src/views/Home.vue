@@ -88,9 +88,14 @@ export default {
 	}
 
 	.welcome-message h1 {
-		font-size: 4.0vw;
+		font-size: 3.5vw;
 		color: green;
 		border-bottom: none;
+	}
+
+	.welcome-message h2 {
+		margin-top: 25px;
+		font-size: 2.7vw;
 	}
 
 	.home-container {
@@ -111,12 +116,11 @@ export default {
 	}
 
 	#user-welcome-container h2 {
-		font-size: 32px;
+		font-size: 2.5vw;
 	}
 
 	.home-container h1 {
 		text-align: center;
-		width: 100%;
 		/* margin: 40px 0 20px 0; */
 		display: block;
 	}
@@ -127,12 +131,12 @@ export default {
 	}
 
 	.welcome-wrapper h2 {
-		font-size: 3.1vw;
+		font-size: 2.5vw;
 		border: none;
 	}
 
 	.welcome-wrapper h3 {
-		font-size: 2.6vw;
+		font-size: 1.9vw;
 		margin: 10px 0;
 		border: none;
 	}
@@ -168,13 +172,21 @@ export default {
 
 	@media screen and (max-width: 600px) {
 
+		.welcome-message h1 {
+			font-size: 10vw;
+		}
+
+		.welcome-message h2 {
+			font-size: 5.9vw;
+		}
+
 		.welcome-wrapper h2 {
-			font-size: 4vw;
+			font-size: 5vw;
 			border: none;
 		}
 
 		.welcome-wrapper h3 {
-			font-size: 3.5vw;
+			font-size: 4.5vw;
 			margin: 10px 0;
 			border: none;
 		}
@@ -189,7 +201,24 @@ export default {
 		}
 
 		.welcome-home-form {
-			padding: 0;
+			width: 100%;
+		}
+
+		.welcome-home-form input {
+			padding: 10px;
+			font-size: 4.2vw;
+		}
+
+		.welcome-home-form .success {
+			font-size: 4.2vw;
+		}
+
+		#user-welcome-container {
+			padding: 5px 0;
+		}
+
+		#user-welcome-container h2 {
+			font-size: 7.5vw;
 		}
 
 	}

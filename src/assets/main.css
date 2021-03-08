@@ -150,16 +150,23 @@ input[type='file'] {
 
 @media screen and (max-width: 600px) {
 	h1 {
-		font-size: 4vw;
+		font-size: 10vw;
 		margin: 0 auto;
 	}
 
 	h2 {
-		font-size: 4vw;
+		font-size: 5vw;
 	}
 
 	.form {
 		display: flex;
 		width: 100%;
+	}
+
+	.form input {
+		width: 100%;
+		padding: 10px;
+		margin: 10px 0;
+		font-size: 4.2vw;
 	}
 }

@@ -77,7 +77,7 @@ export default {
 
 		.layer-container {
 			width: 100vw;
-			height: 100vh;
+			height: 90vh;
 			flex-direction: column;
 			align-items: flex-start;
 		}

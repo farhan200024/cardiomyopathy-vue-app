@@ -22,6 +22,7 @@ const actions = {
 			// send an email verification to the users email
 			await response.user.sendEmailVerification()
 			
+			// update user profile
 			await response.user.updateProfile({
 				displayName: payload.user.displayName
 			})

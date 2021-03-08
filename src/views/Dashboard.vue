@@ -161,7 +161,7 @@ export default {
 
 	.content-wrapper {
 		min-height: 50vh;
-		width: 100vw;
+		width: 100%;
 	}
 
 	.content-wrapper button {
@@ -181,17 +181,17 @@ export default {
 		display: flex;
 		justify-content: space-between;
 		margin: 20px auto;
-		width: 80vw;
+		width: 40%;
 	}
 
-	@media screen and (max-width: 600px) {
+	@media screen and (max-width: 660px) {
 
 		.dashboard-container {
 			padding: 0;
 		}
 
 		.posts-container {
-			width: 90vw;
+			width: 90%;
 			margin: 0 auto;
 		}
 	}

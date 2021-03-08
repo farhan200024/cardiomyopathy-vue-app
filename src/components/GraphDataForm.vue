@@ -148,4 +148,20 @@ export default {
 	.data-form input:focus {
 		border: 1px solid black;
 	}
+
+	@media screen and (max-width: 700px) {
+		.data-form {
+			width: 90%;
+			margin: 0 auto;
+			padding: 0;
+		}
+
+		.data-form input {
+			width: 90%;
+			font-size: 4.2vw;
+			outline: none;
+			color: #999;
+		}
+		
+	}
 </style>

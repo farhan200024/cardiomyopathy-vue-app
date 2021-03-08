@@ -67,7 +67,7 @@
   flex-direction: column;
   box-sizing: border-box;
   padding: 20px;
-  width: 100%;
+  width: 60%;
 }
 
 ol {
@@ -91,5 +91,15 @@ ul li {
   padding: 5px;
   margin-left: 20px;
   text-align: initial;
+}
+
+@media screen and (max-width: 700px) {
+		.help-page-content-wrapper {
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      padding: 20px;
+      width: 100%;
+    }
 }
 </style>
