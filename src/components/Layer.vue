@@ -41,7 +41,8 @@ export default {
 	.layer-container {
 		width: 80%;
 		height: 80%;
-		background: white;display: flex;
+		background: white;
+		display: flex;
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
@@ -70,5 +71,15 @@ export default {
 	#layer-button:hover {
 		color: red;
 		cursor: pointer;
+	}
+
+	@media screen and (max-width: 700px) {
+
+		.layer-container {
+			width: 100vw;
+			height: 90vh;
+			flex-direction: column;
+			align-items: flex-start;
+		}
 	}
 </style>

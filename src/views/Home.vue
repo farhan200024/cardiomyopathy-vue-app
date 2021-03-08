@@ -83,17 +83,23 @@ export default {
 <style>
 
 	.welcome-message {
-		padding: 40px;
 		display: flex;
 		flex-direction: column;
 	}
 
 	.welcome-message h1 {
+		font-size: 3.5vw;
 		color: green;
 		border-bottom: none;
 	}
 
+	.welcome-message h2 {
+		margin-top: 25px;
+		font-size: 2.7vw;
+	}
+
 	.home-container {
+		width: 100%;
 		text-align: left;
 		display: flex;
 		flex-direction: column;
@@ -110,12 +116,12 @@ export default {
 	}
 
 	#user-welcome-container h2 {
-		font-size: 32px;
+		font-size: 2.5vw;
 	}
 
 	.home-container h1 {
 		text-align: center;
-		margin: 40px 0 20px 0;
+		/* margin: 40px 0 20px 0; */
 		display: block;
 	}
 
@@ -125,19 +131,19 @@ export default {
 	}
 
 	.welcome-wrapper h2 {
-		font-size: 42px;
+		font-size: 2.5vw;
 		border: none;
 	}
 
 	.welcome-wrapper h3 {
-		font-size: 24px;
+		font-size: 1.9vw;
 		margin: 10px 0;
 		border: none;
 	}
 
 	.welcome-home-form {
 		display: flex;
-		width: 600px;
+		width: 60vw;
 		padding: 20px 0;
 	}
 
@@ -162,5 +168,58 @@ export default {
 	#wrong-user-message {
 		margin: 0;
 		padding: 0;
+	}
+
+	@media screen and (max-width: 600px) {
+
+		.welcome-message h1 {
+			font-size: 10vw;
+		}
+
+		.welcome-message h2 {
+			font-size: 5.9vw;
+		}
+
+		.welcome-wrapper h2 {
+			font-size: 5vw;
+			border: none;
+		}
+
+		.welcome-wrapper h3 {
+			font-size: 4.5vw;
+			margin: 10px 0;
+			border: none;
+		}
+
+		.welcome-message {
+			box-sizing: border-box;
+			padding: 20px;
+		}
+
+		.home-container {
+			padding: 0;
+		}
+
+		.welcome-home-form {
+			width: 100%;
+		}
+
+		.welcome-home-form input {
+			padding: 10px;
+			font-size: 4.2vw;
+		}
+
+		.welcome-home-form .success {
+			font-size: 4.2vw;
+		}
+
+		#user-welcome-container {
+			padding: 5px 0;
+		}
+
+		#user-welcome-container h2 {
+			font-size: 7.5vw;
+		}
+
 	}
 </style>

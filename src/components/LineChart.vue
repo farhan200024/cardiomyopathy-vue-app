@@ -2,8 +2,8 @@
   <p class="error" v-if="error">{{ error }}</p>
 	<apexchart v-else
 		type="line"
-		height="350"
-		width="500"
+		:height="chartHeight"
+		:width="chartWidth"
 		:options="chartOptions"
 		:series="series"
 	></apexchart>
@@ -21,6 +21,29 @@ export default {
     const yTitle = ref(props.series[0].yTitle)
     const title = ref(props.series[0].title)
     // const reversed = ref(props.series[0].decrementing)
+
+    const chartWidth = ref()
+		const chartHeight = ref()
+
+
+
+    if(window.innerWidth < 700) {
+      chartWidth.value = window.innerWidth / 1
+      chartHeight.value = window.innerWidth / 1.7
+    } else {
+      chartWidth.value = 500
+      chartHeight.value = 300
+    }
+
+		window.onresize = () => {
+      if(window.innerWidth < 700) {
+        chartWidth.value = window.innerWidth / 1
+        chartHeight.value = window.innerWidth / 1.7
+      } else {
+        chartWidth.value = 500
+        chartHeight.value = 300
+      }
+		}
 
     calcValues(props.series)
     // xMin.value = (props.series[0].data[0][0] < 1 ? 0 : props.series[0].data[0][0])
@@ -97,6 +120,8 @@ export default {
 
 		return {
 			chartOptions,
+      chartWidth,
+      chartHeight,
       error
 		}
 	}

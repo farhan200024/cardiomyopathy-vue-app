@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<h1>Posts</h1>
-		<div v-if="allPosts">
+		<div v-if="allPosts" class="posts-table">
 			<table>
 				<tr>
 					<th>#</th>
@@ -119,6 +119,15 @@ export default {
 	#chart-button:hover {
 		cursor: pointer;
 		color: green;
+	}
+
+	@media screen and (max-width: 600px) {
+
+		.posts-table {
+			overflow: auto;
+			width: 100vw;
+		}
+
 	}
 
 </style>

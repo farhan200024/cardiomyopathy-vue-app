@@ -58,6 +58,8 @@ export default {
 
 <style>
 	.news-feed-container {
+		width: 80%;
+		margin: 0 auto;
 		text-align: left;
 	}
 
@@ -73,6 +75,7 @@ export default {
 		padding: 20px;
 		margin: 10px 0;
 		display: flex;
+		border-bottom: 1px solid #545454;
 	}
 
 	.news-article-content {
@@ -93,4 +96,38 @@ export default {
 		width: 323px;
 		height: 250px;
 	}
+
+	@media screen and (max-width: 750px) {
+
+		.news-feed-container {
+			width: 100%;
+		}
+
+		#news-feed-title {
+			font-size: 5.9vw;
+			margin: 20px 15px;
+		}
+
+		.news-image-element {
+			width: 80%;
+			margin: 0 auto;
+		}
+
+		.news-item {
+			display: flex;
+			flex-direction: column;
+			padding: 0;
+			margin: 10px auto;
+		}
+
+		.news-item a {
+			font-size: 4.5vw;
+		}
+
+		.news-description {
+			font-size: 4.2vw;
+		}
+
+	}
+
 </style>
